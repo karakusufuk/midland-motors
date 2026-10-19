@@ -237,18 +237,19 @@ function stripSummary(){
 function scrub(car, cls=''){
   const tg = [car.owners===1?'1 owner':'', car.fullServiceHistory?'Full service history':''].filter(Boolean).join(' · ');
   const tags = cls==='tags' && tg ? `<span class="tags"><span>${tg}</span></span>` : '';
-  return `<div class="scrub" data-scrub="${car.slug}"><img src="${car.photos[0]}" alt="${nm(car)} ${car.variant}" loading="lazy">${tags}</div>`;
+  return `<div class="scrub" data-scrub="${car.slug}"><img src="${small(car.photos[0])}" alt="${nm(car)} ${car.variant}" loading="lazy">${tags}</div>`;
 }
+const small = p => p.replace('.webp','-640.webp'), mid = p => p.replace('.webp','-960.webp');
 const preloaded = new Set();
 document.addEventListener('pointermove', e => {
   const s = e.target.closest && e.target.closest('[data-scrub]'); if (!s || e.pointerType==='touch') return;
   const car = bySlug(s.dataset.scrub);
-  if (!preloaded.has(car.slug)){ preloaded.add(car.slug); car.photos.forEach(p=>{ const im=new Image(); im.src=p; }); }
+  if (!preloaded.has(car.slug)){ preloaded.add(car.slug); car.photos.forEach(p=>{ const im=new Image(); im.src=small(p); }); }
   const r = s.getBoundingClientRect(), n = car.photos.length; const i = Math.max(0, Math.min(n-1, Math.floor((e.clientX - r.left) / r.width * n)));
   setScrub(s, car, i);
 });
 document.addEventListener('pointerout', e => { const s = e.target.closest && e.target.closest('[data-scrub]'); if (s && !s.contains(e.relatedTarget)) setScrub(s, bySlug(s.dataset.scrub), 0); });
-function setScrub(s, car, i){ if (s.dataset.i == i) return; s.dataset.i = i; s.querySelector('img').src = car.photos[i]; }
+function setScrub(s, car, i){ if (s.dataset.i == i) return; s.dataset.i = i; s.querySelector('img').src = small(car.photos[i]); }
 let touchX = null;
 document.addEventListener('touchstart', e => { const s = e.target.closest && e.target.closest('[data-scrub]'); if (s){ touchX = e.touches[0].clientX; s.classList.add('touched'); } }, {passive:true});
 document.addEventListener('touchend', e => { const s = e.target.closest && e.target.closest('[data-scrub]'); if (!s || touchX===null) return; const dx = e.changedTouches[0].clientX - touchX; touchX = null; if (Math.abs(dx) < 30) return; const car = bySlug(s.dataset.scrub); const i = Math.max(0, Math.min(car.photos.length-1, (+s.dataset.i||0) + (dx<0?1:-1))); setScrub(s, car, i); }, {passive:true});
@@ -365,8 +366,8 @@ function carHTML(c){
   return `
   <div class="wrap crumb"><a href="/stock/">Stock</a> / ${nm(c)}</div>
   <div class="wrap car-top">
-    <div><div class="gal-main" data-zoom><img id="galMain" src="${c.photos[0]}" alt="${nm(c)}, front three-quarter view"></div>
-      <div class="thumbs">${c.photos.map((p,i)=>`<button class="${i?'':'on'}" data-thumb="${i}" aria-label="Photo ${i+1} of ${c.photos.length}"><img src="${p}" alt=""></button>`).join('')}</div></div>
+    <div><div class="gal-main" data-zoom><img id="galMain" data-i="0" src="${mid(c.photos[0])}" fetchpriority="high" alt="${nm(c)}, front three-quarter view"></div>
+      <div class="thumbs">${c.photos.map((p,i)=>`<button class="${i?'':'on'}" data-thumb="${i}" aria-label="Photo ${i+1} of ${c.photos.length}"><img src="${small(p)}" alt="" loading="lazy"></button>`).join('')}</div></div>
     <aside class="buybox">
       <div><h1 class="d" style="font-size:40px">${nm(c)}</h1><div class="muted" style="margin-top:6px">${c.variant} · ${c.colour} · ${c.body}</div></div>
       <div><div style="font:600 44px/1.1 var(--body)">${eur(c.price)}</div><div class="small muted">or ${eur(c.monthlyFrom)} a month over 60 months, 10% deposit</div></div>
@@ -613,9 +614,9 @@ function startDrive(){
     brand.classList.add('draw'); cta.classList.add('show'); return;
   }
   // One road: the gravel and the history stops travel together, at one speed, entering off the right edge and leaving off the left.
-  const V = Math.max(200, W*0.155);                     // px/s
-  const ENTER = 1.3, startX = W + 150, GAP = W + 260;  // one stop on screen at a time
-  const restX = centreX, DEC = 2.2;
+  const V = Math.max(300, W*0.25);                     // px/s
+  const ENTER = 0.9, startX = W + 150, GAP = W + 260;  // one stop on screen at a time
+  const restX = centreX, DEC = 1.7;
   const spawnP = S.map((_,i)=> V*1.0 + i*GAP);          // road position at which stop i appears at startX
   const pStop = spawnP[last] + (startX - restX);        // road position where the last stop rests under the car
   const tDec = (pStop - V*DEC/2)/V, tStop = tDec + DEC; // constant speed, then ease to a halt landing exactly on pStop
@@ -629,7 +630,7 @@ function startDrive(){
     const k = Math.min(1, t/ENTER), e = 1 - Math.pow(1-k, 3);
     car.style.transform = `translateX(${(-carW - 60 + (carX + carW + 60)*e).toFixed(1)}px)`;
     rot += v * dt / wheelR * 180/Math.PI;
-    const bl = (v/V*1.6).toFixed(2);                    // light motion blur on the spinning wheels hides the strobing highlight
+    const bl = (v/V*0.5).toFixed(2);                    // light motion blur on the spinning wheels hides the strobing highlight
     wheels.forEach(w => { w.style.transform = `rotate(${rot.toFixed(2)}deg)`; w.style.filter = v>2 ? `blur(${bl}px)` : 'none'; });
     bob.style.transform = `translateY(${(v>5 ? Math.sin(t*7.5)*0.8 + Math.sin(t*2.3)*0.5 : 0).toFixed(2)}px)`;
     stopEls.forEach((el,i) => {
@@ -710,10 +711,10 @@ function initCar(c){
   $('#zgrid').addEventListener('pointerleave', () => { hov = null; paint(); });
   function flip(to){ const f = $('#isoFlip'); f.classList.add('mid'); setTimeout(()=>{ side = to || (side==='L'?'R':'L'); draw(); f.classList.remove('mid'); }, reduce?0:300); }
   $('[data-flip]').addEventListener('click', () => { hov = null; const next = side==='L'?'R':'L'; if (['doorFL','doorRL','doorFR','doorRR'].includes(sel)) sel = ({doorFL:'doorFR',doorRL:'doorRR',doorFR:'doorFL',doorRR:'doorRL'})[sel]; flip(next); });
-  draw();
+  { const insp = $('.insp'); if ('IntersectionObserver' in window && insp){ const io = new IntersectionObserver(es => { if (es[0].isIntersecting){ io.disconnect(); draw(); } }, {rootMargin:'700px 0px'}); io.observe(insp); } else draw(); }
   // gallery
-  $$('[data-thumb]').forEach(b => b.addEventListener('click', () => { const i=+b.dataset.thumb; $('#galMain').src = c.photos[i]; $$('[data-thumb]').forEach(x=>x.classList.toggle('on', x===b)); }));
-  $('[data-zoom]').addEventListener('click', () => { const lb = $('#lightbox'); lb.querySelector('img').src = $('#galMain').src; lb.classList.add('on'); });
+  $$('[data-thumb]').forEach(b => b.addEventListener('click', () => { const i=+b.dataset.thumb; $('#galMain').src = mid(c.photos[i]); $('#galMain').dataset.i = i; $$('[data-thumb]').forEach(x=>x.classList.toggle('on', x===b)); }));
+  $('[data-zoom]').addEventListener('click', () => { const lb = $('#lightbox'); lb.querySelector('img').src = c.photos[+$('#galMain').dataset.i || 0]; lb.classList.add('on'); });
   // calc
   let term = 60;
   const dep = $('#dep');

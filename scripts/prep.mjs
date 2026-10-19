@@ -7,6 +7,7 @@ for(const p of need){ const m=p.match(/img\/cars\/([^/]+)\/(\d\d)\.webp/); const
   if(!src){ const f=fs.readdirSync(`${SRC}/${dir}`).find(x=>x.startsWith(n+'_')); src=`${SRC}/${dir}/${f}`; }
   fs.mkdirSync(`public/img/cars/${dir}`,{recursive:true});
   await sharp(src).resize({width:1280,withoutEnlargement:true}).webp({quality:78}).toFile(`public/img/cars/${dir}/${n}.webp`);
+  await sharp(src).resize({width:960,withoutEnlargement:true}).webp({quality:76}).toFile(`public/img/cars/${dir}/${n}-960.webp`);
   await sharp(src).resize({width:640,withoutEnlargement:true}).webp({quality:74}).toFile(`public/img/cars/${dir}/${n}-640.webp`);
 }
 // car body

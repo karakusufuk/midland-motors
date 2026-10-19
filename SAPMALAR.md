@@ -9,3 +9,6 @@
 - Fontlar `@fontsource` ile kendi sunucudan; prototipteki Google Fonts bağlantısı kaldırıldı.
 - ford-focus 01/02 yer değişimi yapılmadı: arabanın fotoğraf listesi zaten 03'ten başlıyor.
 - Mobil için ayrı tur yapılmadı; prototipin duyarlı kuralları aynen taşındı.
+- Araba fotoğrafları: 1280, 960 (galeri ana görseli) ve 640 (küçük resim, satır, kart) WebP. Araç sayfasında ilk fotoğraf `<link rel=preload>` ile öne alınır.
+- Pasaport sahnesi hızı kullanıcı isteğiyle prototipin %60 üstünde (`V = max(300, W*0.25)`), tekerlek bulanıklığı 1.6 → 0.5 px.
+- Plakalar fotoğraflara kalıcı işlendi; `scripts/prep.mjs` çalıştırılırsa `scripts/plates.mjs` ve 960 varyantlarının plakaları yeniden uygulanmalı.
