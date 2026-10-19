@@ -1,0 +1,149 @@
+[
+ {
+  "group": "Engine and drivetrain",
+  "items": [
+   "Oil level and condition",
+   "Coolant level and strength",
+   "Oil leaks",
+   "Coolant leaks",
+   "Cambelt or chain record",
+   "Auxiliary belt",
+   "Engine mounts",
+   "Cold start",
+   "Idle quality",
+   "Exhaust smoke",
+   "Exhaust system and mounts",
+   "Turbo boost and noise",
+   "Air filter",
+   "Fuel system leaks",
+   "Clutch bite and slip",
+   "Gearbox oil",
+   "Gear selection",
+   "Driveshaft boots",
+   "CV joints",
+   "Differential",
+   "DPF or catalyst health",
+   "Fault codes cleared and re-read"
+  ]
+ },
+ {
+  "group": "Brakes",
+  "items": [
+   "Front pad thickness",
+   "Rear pad thickness",
+   "Front disc condition",
+   "Rear disc condition",
+   "Brake fluid moisture",
+   "Brake lines",
+   "Brake hoses",
+   "Callipers sliding freely",
+   "Handbrake or electric park brake",
+   "ABS sensors",
+   "Brake balance on rollers",
+   "Pedal feel",
+   "Emergency stop test",
+   "Brake warning lights"
+  ]
+ },
+ {
+  "group": "Tyres and wheels",
+  "items": [
+   "Front tread depth",
+   "Rear tread depth",
+   "Tyre age",
+   "Matching brands per axle",
+   "Sidewall damage",
+   "Tyre pressures",
+   "Wheel alignment",
+   "Wheel bearings",
+   "Alloy damage",
+   "Locking wheel nut present",
+   "Spare or repair kit",
+   "TPMS sensors"
+  ]
+ },
+ {
+  "group": "Electrics",
+  "items": [
+   "Battery health test",
+   "Charging system",
+   "Starter motor",
+   "Headlights and aim",
+   "Indicators and hazards",
+   "Brake and reverse lights",
+   "Fog lights",
+   "Interior lights",
+   "Horn",
+   "Wipers and washers",
+   "Electric windows",
+   "Central locking and keys",
+   "Mirrors fold and heat",
+   "Infotainment and Bluetooth",
+   "Parking sensors and camera",
+   "Driver-assist cameras"
+  ]
+ },
+ {
+  "group": "Bodywork",
+  "items": [
+   "Paint depth on every panel",
+   "Panel gaps",
+   "Previous repairs on record",
+   "Rust and corrosion",
+   "Underbody",
+   "Sills",
+   "Windscreen chips",
+   "Side and rear glass",
+   "Door seals",
+   "Boot seal and spare well",
+   "Sunroof drains",
+   "Bumpers and fixings",
+   "Number plates",
+   "Mud flaps and arch liners",
+   "Towbar, if fitted",
+   "Roof and pillars",
+   "Flood damage signs",
+   "Chassis number matches records"
+  ]
+ },
+ {
+  "group": "Interior",
+  "items": [
+   "Seats and adjustment",
+   "Seat belts and buckles",
+   "Airbag lights",
+   "Upholstery wear",
+   "Headlining",
+   "Carpets and mats",
+   "Dashboard warning lights",
+   "Heater and demist",
+   "Air conditioning cold",
+   "Steering wheel and controls",
+   "Pedal rubbers",
+   "Odours and damp",
+   "Child seat fittings",
+   "Glovebox and storage",
+   "Sun visors and mirrors",
+   "Two keys present"
+  ]
+ },
+ {
+  "group": "Road test",
+  "items": [
+   "Steering straight and true",
+   "Suspension knocks",
+   "Shock absorbers",
+   "Gear changes under load",
+   "Clutch or auto change quality",
+   "Cruise control",
+   "Engine temperature stable",
+   "Road noise",
+   "Wind noise",
+   "Rattles and squeaks",
+   "Braking in a straight line",
+   "Hill start",
+   "Motorway speed stability",
+   "Final scan for fault codes"
+  ]
+ }
+]

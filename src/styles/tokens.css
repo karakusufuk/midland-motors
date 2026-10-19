@@ -1,0 +1,11 @@
+/* Midland Motors tokens. Light warm page, dark "stage" bands. Single deliberate light theme. */
+:root{
+  --bg:#F3F1ED; --surface:#FFFFFF; --ink:#1C1E21; --ink2:#5B5F64; --line:#E1DDD6; --line2:#D3CEC5;
+  --stage:#24272B; --stage2:#2E3237; --stage-line:#3D4248; --bone:#F2EEE8; --bone2:#B9BBBD;
+  --wine:#8C2B3C; --wine-h:#A23549; --wine-tint:#F3E6E7; --wine-on-dark:#E08A99;
+  --pass:#86A57F; --rep:#E6D9C6;
+  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+  --r:24px; --r-sm:14px; --pill:999px;
+  --ease:cubic-bezier(.65,0,.35,1); --ease-out:cubic-bezier(.2,.8,.2,1);
+  color-scheme:light;
+}

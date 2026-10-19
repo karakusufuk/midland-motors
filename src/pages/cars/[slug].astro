@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import data from '../../data/cars.json';
+export function getStaticPaths() { return data.cars.map(c => ({ params: { slug: c.slug }, props: { c } })); }
+const { c } = Astro.props;
+const name = `${c.year} ${c.make} ${c.model} ${c.variant}`;
+const origin = Astro.site ?? new URL('https://midlandmotors.example');
+const ld = {
+  '@context': 'https://schema.org', '@type': 'Vehicle', name,
+  brand: { '@type': 'Brand', name: c.make }, model: c.model, vehicleModelDate: String(c.year),
+  fuelType: c.fuel, vehicleTransmission: c.transmission, color: c.colour,
+  mileageFromOdometer: { '@type': 'QuantitativeValue', value: c.km, unitCode: 'KMT' },
+  image: c.photos.map(p => new URL('/' + p, origin).href),
+  offers: { '@type': 'Offer', price: c.price, priceCurrency: 'EUR', availability: 'https://schema.org/InStock',
+    seller: { '@type': 'AutoDealer', name: 'Midland Motors', address: 'Dublin Road, Athlone, Co. Westmeath' } },
+};
+---
+<Base title={`${c.make} ${c.model} · Midland Motors`} description={`${name}, ${c.km.toLocaleString('en-IE')} km, €${c.price.toLocaleString('en-IE')}. Inspected in our own workshop in Athlone.`} ld={ld} preload={'/' + c.photos[0]} />

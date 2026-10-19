@@ -1,0 +1,35 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/500.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '../styles/tokens.css';
+import '../styles/app.css';
+const { title, description = 'Midland Motors, Athlone. 24 used cars, every one inspected in our own workshop.', ld, poster = false, preload } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="theme-color" content="#24272B" />
+  <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg" />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? 'https://midlandmotors.example').href} />
+  {poster && <link rel="preload" as="image" href="/media/hero-poster.webp" fetchpriority="high" />}
+  {preload && <link rel="preload" as="image" href={preload} fetchpriority="high" />}
+  {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+</head>
+<body>
+  <a class="skip" href="#root" style="position:absolute;left:-999px">Skip to content</a>
+  <header class="hdr" id="hdr"></header>
+  <header class="bar" id="bar"></header>
+  <main id="root"><slot /></main>
+  <div class="sticky-td" id="stickyTD"><button class="btn btn-wine btn-lg" data-panel="testdrive">Book a test drive</button></div>
+  <div class="scrim" id="scrim"></div>
+  <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Panel"></aside>
+  <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo"><img alt="Enlarged car photo" /></div>
+  <script>import '../scripts/main.js';</script>
+</body>
+</html>

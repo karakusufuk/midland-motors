@@ -1,0 +1,78 @@
+{
+ "name": "Midland Motors",
+ "tagline": "Clear history. Every car.",
+ "certifiedLine": "If our workshop wouldn't pass it, we don't sell it.",
+ "address": "Midland Motors, Dublin Road, Athlone, Co. Westmeath N37",
+ "phone": "+353 90 555 0187",
+ "phoneShort": "090 555 0187",
+ "email": "sales@midlandmotors.ie",
+ "hours": [
+  {
+   "days": "Mon\u2013Fri",
+   "open": "09:00",
+   "close": "18:00"
+  },
+  {
+   "days": "Sat",
+   "open": "09:30",
+   "close": "17:00"
+  },
+  {
+   "days": "Sun",
+   "open": null,
+   "close": null
+  }
+ ],
+ "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=Athlone%2C%20Co.%20Westmeath",
+ "founded": 1987,
+ "family": "The Kenny family",
+ "reserveDeposit": 200,
+ "finance": {
+  "type": "Hire purchase",
+  "apr": 7.9,
+  "defaultDepositPct": 10,
+  "terms": [
+   24,
+   36,
+   48,
+   60
+  ],
+  "defaultTerm": 60,
+  "minDeposit": 0,
+  "representative": "Representative example: cash price \u20ac24,995, deposit \u20ac2,500, amount of credit \u20ac22,495, 60 monthly payments of \u20ac452.12, APR 7.9%. Total cost of credit \u20ac4,632.14. Total amount payable \u20ac29,627.14. Finance is subject to status and provided by a third-party lender. Midland Motors is a credit intermediary. Concept site, not a real offer.",
+  "formula": "monthly rate r = (1 + APR)^(1/12) \u2212 1; payment = credit \u00d7 r / (1 \u2212 (1 + r)^\u2212months)"
+ },
+ "rejected": {
+  "period": "2025",
+  "looked": 412,
+  "turnedDown": 139,
+  "reasons": [
+   [
+    "Hidden accident damage",
+    41
+   ],
+   [
+    "Missing service history",
+    31
+   ],
+   [
+    "Owners we could not verify",
+    26
+   ],
+   [
+    "Mileage we could not prove",
+    23
+   ],
+   [
+    "Rust or flood damage",
+    18
+   ]
+  ]
+ },
+ "warranty": [
+  "12 months Midland warranty on every car, parts and labour.",
+  "Breakdown cover for the first 12 months, anywhere in Ireland.",
+  "14-day exchange if the car is not right for you.",
+  "Free 1,000 km check-up in our workshop."
+ ]
+}
