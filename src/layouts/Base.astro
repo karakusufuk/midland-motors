@@ -5,6 +5,10 @@ import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-sans/600.css';
 import '../styles/tokens.css';
 import '../styles/app.css';
+import archivo from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
+import plex400 from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2?url';
+import plex500 from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff2?url';
+import plex600 from '@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-600-normal.woff2?url';
 const { title, description = 'Midland Motors, Athlone. 24 used cars, every one inspected in our own workshop.', ld, poster = false, preload } = Astro.props;
 ---
 <!doctype html>
@@ -14,6 +18,7 @@ const { title, description = 'Midland Motors, Athlone. 24 used cars, every one i
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  {[archivo, plex400, plex500, plex600].map(f => <link rel="preload" as="font" type="font/woff2" href={f} crossorigin />)}
   <meta name="theme-color" content="#24272B" />
   <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg" />
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? 'https://midlandmotors.example').href} />

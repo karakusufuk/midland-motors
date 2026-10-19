@@ -15,4 +15,10 @@ const ld = {
     seller: { '@type': 'AutoDealer', name: 'Midland Motors', address: 'Dublin Road, Athlone, Co. Westmeath' } },
 };
 ---
-<Base title={`${c.make} ${c.model} · Midland Motors`} description={`${name}, ${c.km.toLocaleString('en-IE')} km, €${c.price.toLocaleString('en-IE')}. Inspected in our own workshop in Athlone.`} ld={ld} preload={'/' + c.photos[0]} />
+<Base title={`${c.make} ${c.model} · Midland Motors`} description={`${name}, ${c.km.toLocaleString('en-IE')} km, €${c.price.toLocaleString('en-IE')}. Inspected in our own workshop in Athlone.`} ld={ld} preload={'/' + c.photos[0]}>
+  <div class="wrap" style="padding-top:110px;max-width:560px">
+    <div class="gal-main"><img src={'/' + c.photos[0]} alt={`${c.make} ${c.model}`} width="1280" height="960" fetchpriority="high" /></div>
+    <h1 class="d" style="font-size:clamp(32px,5vw,48px);margin-top:20px">{c.make} {c.model}</h1>
+    <p class="muted">{c.variant} · €{c.price.toLocaleString('en-IE')}</p>
+  </div>
+</Base>

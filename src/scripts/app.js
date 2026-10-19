@@ -723,6 +723,14 @@ function initCar(c){
   upd();
 }
 document.addEventListener('click', e => { if (e.target.closest('#lightbox')) $('#lightbox').classList.remove('on'); });
+document.addEventListener('keydown', e => {
+  const lb = $('#lightbox'); if (!lb || !lb.classList.contains('on')) return;
+  if (e.key === 'Escape'){ lb.classList.remove('on'); return; }
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  const c = bySlug(STATE.car); if (!c) return; const img = lb.querySelector('img');
+  const cur = Math.max(0, c.photos.findIndex(p => img.src.endsWith(p))); const n = c.photos.length;
+  img.src = c.photos[(cur + (e.key === 'ArrowRight' ? 1 : n - 1)) % n]; e.preventDefault();
+});
 
 /* ---------- certified / finance ---------- */
 function initCertified(){

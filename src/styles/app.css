@@ -4,7 +4,7 @@
   --stage:#24272B; --stage2:#2E3237; --stage-line:#3D4248; --bone:#F2EEE8; --bone2:#B9BBBD;
   --wine:#8C2B3C; --wine-h:#A23549; --wine-tint:#F3E6E7; --wine-on-dark:#E08A99;
   --pass:#86A57F; --rep:#E6D9C6;
-  --display:'Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
+  --display:'Archivo Variable','Archivo','Arial Narrow',sans-serif; --body:'IBM Plex Sans',system-ui,sans-serif;
   --r:24px; --r-sm:14px; --pill:999px;
   --ease:cubic-bezier(.65,0,.35,1); --ease-out:cubic-bezier(.2,.8,.2,1);
   color-scheme:light;
@@ -137,7 +137,7 @@ button{font:inherit;color:inherit}
 .brand.draw svg .mk-dot{transition:transform .5s 1s cubic-bezier(.3,1.6,.5,1);transform:scale(1)}
 .brand span{font:800 22px var(--display);font-stretch:125%;letter-spacing:.06em;text-transform:uppercase;color:var(--bone);opacity:0;transform:translateX(-8px);transition:opacity .8s 1.2s,transform .8s 1.2s var(--ease-out)}
 .brand.draw span{opacity:1;transform:none}
-.drive-cta{display:flex;justify-content:center;gap:12px;margin-top:8px;opacity:0;transform:translateY(10px);transition:opacity .7s,transform .7s var(--ease-out)}
+.drive-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;padding:0 20px;margin-top:8px;opacity:0;transform:translateY(10px);transition:opacity .7s,transform .7s var(--ease-out)}
 .drive-cta.show{opacity:1;transform:none}
 .replay{position:absolute;right:24px;top:24px;z-index:5}
 .replay .btn{--h:38px;padding:0 16px;font-size:13px}
