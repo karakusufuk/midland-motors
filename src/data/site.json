@@ -5,7 +5,7 @@
  "address": "Midland Motors, Dublin Road, Athlone, Co. Westmeath N37",
  "phone": "+353 90 555 0187",
  "phoneShort": "090 555 0187",
- "email": "sales@midlandmotors.ie",
+ "email": "sales@midland.ufuk.ie",
  "hours": [
   {
    "days": "Mon\u2013Fri",
@@ -23,7 +23,6 @@
    "close": null
   }
  ],
- "mapsUrl": "https://www.google.com/maps/dir/?api=1&destination=Athlone%2C%20Co.%20Westmeath",
  "founded": 1987,
  "family": "The Kenny family",
  "reserveDeposit": 200,

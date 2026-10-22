@@ -473,3 +473,9 @@ html.menu-open{overflow:hidden}
   .f-rec{border-left:0;padding-left:0}
   .f-row1 .f-all{--h:48px}
 }
+
+.hdr .phone,.bar .phone{text-decoration:none;color:inherit}
+.map-link{display:block;color:inherit;text-decoration:none;border-radius:28px}
+.foot-note{display:flex;justify-content:space-between;gap:8px 24px;flex-wrap:wrap;padding-top:20px;padding-bottom:max(28px,env(safe-area-inset-bottom,0px));font-size:13px;color:var(--bone2)}
+.foot-note-wrap{background:var(--stage)}
+.foot-note-wrap .wrap{border-top:1px solid var(--stage-line);margin-top:0}

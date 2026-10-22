@@ -31,12 +31,12 @@ function navLinks(){
   return `<a href="/stock/" data-nav="stock">Stock</a><a href="/certified/" data-nav="certified">Midland Certified</a><a href="/finance/" data-nav="finance">Finance</a><a href="#" data-panel="tradein">Value your car</a><a href="#" data-goto="visit">Visit</a>`;
 }
 function chrome(){
-  $('#hdr').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#F2EEE8','#F2EEE8')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><span class="phone">090 555 0187</span><button class="btn btn-bone" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
-  $('#bar').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#8C2B3C','#1C1E21')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><span class="phone">090 555 0187</span><button class="btn btn-wine" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
+  $('#hdr').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#F2EEE8','#F2EEE8')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><a class="phone" href="tel:+353905550187" data-concept="phone">090 555 0187</a><button class="btn btn-bone" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
+  $('#bar').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#8C2B3C','#1C1E21')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><a class="phone" href="tel:+353905550187" data-concept="phone">090 555 0187</a><button class="btn btn-wine" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
   if (!$('#mnav')){ const m = document.createElement('div'); m.id = 'mnav'; m.className = 'mnav stage'; m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true'); m.setAttribute('aria-label','Menu'); m.hidden = true;
     m.innerHTML = `<div class="wrap mnav-top"><a class="logo" href="/" data-menu-close aria-label="Midland Motors home">${logoSVG('#F2EEE8','#F2EEE8')}</a><button type="button" class="menu-btn" data-menu-close aria-label="Close menu"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Close</span></button></div>
       <nav class="wrap mnav-links" aria-label="Main"><a href="/" data-menu-close>Home</a><a href="/stock/" data-menu-close>Stock</a><a href="/certified/" data-menu-close>Midland Certified</a><a href="/finance/" data-menu-close>Finance</a><a href="#" data-menu-close data-panel="tradein">Value your car</a><a href="#" data-menu-close data-goto="visit">Visit</a></nav>
-      <div class="wrap mnav-foot"><button class="btn btn-wine btn-lg" data-menu-close data-panel="testdrive">Book a test drive</button><span class="muted">Call 090 555 0187 · Dublin Road, Athlone</span></div>`;
+      <div class="wrap mnav-foot"><button class="btn btn-wine btn-lg" data-menu-close data-panel="testdrive">Book a test drive</button><span class="muted"><a href="tel:+353905550187" data-concept="phone" style="color:inherit">Call 090 555 0187</a> · <a href="#" data-concept="address" style="color:inherit">Dublin Road, Athlone</a></span></div>`;
     document.body.appendChild(m); }
 }
 function setMenu(open){ const m = $('#mnav'); m.hidden = !open; document.documentElement.classList.toggle('menu-open', open); $$('[data-menu]').forEach(b => b.setAttribute('aria-expanded', open)); if (open) setTimeout(()=>m.querySelector('.mnav-links a').focus(), 30); }
@@ -48,17 +48,17 @@ function footerHTML(){
     <div class="foot-grid">
       <div style="display:flex;flex-direction:column;gap:26px;align-items:flex-start">
         <h2 class="d" style="font-size:clamp(44px,5.4vw,80px)">Visit us in Athlone.</h2>
-        <p style="margin:0;font-size:18px">Dublin Road, Athlone, Co. Westmeath N37<br><span class="muted">Five minutes from junction 9 on the M6.</span></p>
+        <p style="margin:0;font-size:18px"><a href="#" data-concept="address" style="color:inherit;text-decoration:none">Dublin Road, Athlone, Co. Westmeath N37</a><br><span class="muted">Five minutes from junction 9 on the M6.</span></p>
         <span class="open-now" data-open><i></i><span>Open now</span></span>
         <div class="hours"><span class="muted">Monday to Friday</span><span>9am – 6pm</span><span class="muted">Saturday</span><span>9.30am – 5pm</span><span class="muted">Sunday</span><span>Closed</span></div>
         <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn btn-wine foot-td" data-panel="testdrive">Book a test drive</button><a class="btn btn-line" href="tel:+353905550187">Call the workshop · 090 555 0187</a></div>
       </div>
       <div>
-        <div class="map">${mapSVG()}</div>
-        <a class="link" style="display:inline-block;margin-top:16px" href="${SITE.mapsUrl}" target="_blank" rel="noopener">Get directions</a>
+        <a href="#" data-concept="address" class="map-link" aria-label="Open directions to the showroom"><div class="map">${mapSVG()}</div></a>
+        <a class="link" style="display:inline-block;margin-top:16px" href="#" data-concept="address">Get directions</a>
       </div>
     </div>
-    <div class="foot-bottom">${logoSVG('#F2EEE8','#F2EEE8')}<span>© 2026 Midland Motors · Concept site</span><a href="/privacy/" style="color:inherit">Privacy</a><span style="margin-left:auto">Designed by Ufuk Karakuş</span></div>
+    <div class="foot-bottom">${logoSVG('#F2EEE8','#F2EEE8')}<span>© 2026 Midland Motors</span><a href="/privacy/" style="color:inherit">Privacy</a></div>
   </div></footer>`;
 }
 function mapSVG(){
@@ -372,7 +372,7 @@ function carHTML(c){
       <div><h1 class="d" style="font-size:40px">${nm(c)}</h1><div class="muted" style="margin-top:6px">${c.variant} · ${c.colour} · ${c.body}</div></div>
       <div><div style="font:600 44px/1.1 var(--body)">${eur(c.price)}</div><div class="small muted">or ${eur(c.monthlyFrom)} a month over 60 months, 10% deposit</div></div>
       <button class="btn btn-wine btn-lg" data-panel="testdrive">Book a test drive</button>
-      <button class="btn btn-line btn-lg" data-panel="reserve">Reserve for €200</button>
+      <button class="btn btn-line btn-lg" data-concept="reserve">Reserve for €200</button>
       <div class="small muted" style="margin-top:-6px;text-align:center">Refundable. We hold the car for you for 7 days.</div>
       <div class="kv"><span class="muted">Registration</span><span>${c.registration}</span><span class="muted">Owners</span><span>${c.owners}, ${c.owners===1?'verified':'both verified'}</span><span class="muted">Origin</span><span>${c.origin}</span><span class="muted">NCT</span><span>Valid to ${c.nctValidTo}</span><span class="muted">Inspection</span><span style="color:var(--wine);font-weight:600">112 of 112 passed</span></div>
     </aside>
@@ -768,7 +768,7 @@ document.addEventListener('click', e => {
 let PANEL = null, opener = null;
 function openPanel(kind, from){
   opener = from; PANEL = {kind, step:0, data:{}};
-  if (kind==='testdrive' || kind==='reserve'){ PANEL.car = STATE.page==='car' ? bySlug(STATE.car) : null; PANEL.step = PANEL.car ? 1 : 0; }
+  if (kind==='testdrive'){ PANEL.car = STATE.page==='car' ? bySlug(STATE.car) : null; PANEL.step = PANEL.car ? 1 : 0; }
   $('#scrim').classList.add('on'); $('#panel').classList.add('on'); $('#panel').setAttribute('aria-hidden','false');
   drawPanel(); setTimeout(()=>{ const h = $('#panel h2'); if (h) h.focus(); }, 60);
 }
@@ -776,10 +776,9 @@ function closePanel(){ if (!PANEL) return; PANEL = null; $('#scrim').classList.r
 $('#scrim')?.addEventListener('click', closePanel);
 function drawPanel(){
   const P = PANEL, el = $('#panel');
-  const title = {testdrive:'Book a test drive', reserve:'Reserve this car', tradein:'Value your car'}[P.kind];
+  const title = {testdrive:'Book a test drive', tradein:'Value your car'}[P.kind];
   let body = '', foot = '';
   if (P.kind==='tradein') ({body, foot} = tradeIn(P));
-  else if (P.kind==='reserve') ({body, foot} = reserve(P));
   else ({body, foot} = testDrive(P));
   el.innerHTML = `<div class="panel-h"><h2 tabindex="-1" style="font:600 18px var(--body);margin:0">${title}</h2><button class="x" data-close aria-label="Close">${'<svg width="14" height="14" viewBox="0 0 14 14"><path d="M1 1L13 13M13 1L1 13" stroke="#1C1E21" stroke-width="1.8" stroke-linecap="round"/></svg>'}</button></div><div class="panel-b fade-in">${body}</div><div class="panel-f">${foot}</div>`;
   $('[data-close]', el).addEventListener('click', closePanel);
@@ -804,11 +803,6 @@ function testDrive(P){
 }
 const FULLDAY = {Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday'};
 function tdDays(){ const out=[]; const d=new Date(); while(out.length<8){ d.setDate(d.getDate()+1); if (d.getDay()!==0) out.push([d.toLocaleDateString('en-IE',{weekday:'short'}).slice(0,3), d.getDate()+' '+d.toLocaleDateString('en-IE',{month:'short'}).slice(0,3)]); } return out; }
-function reserve(P){
-  const c = P.car || bySlug('2020-bmw-3-series-se'); const until = new Date(); until.setDate(until.getDate()+7);
-  if (!P.data.done) return { body:`<div class="qrow" style="flex-direction:row;align-items:center">${CARIMG(c)}<span><b style="display:block">${nm(c)} ${c.variant}</b><span class="small muted">${eur(c.price)}</span></span></div><p class="q">We'll hold it for 7 days.</p><p class="muted" style="margin:0">Leave your details and we take it off the forecourt until ${until.toLocaleDateString('en-IE',{weekday:'long',day:'numeric',month:'long'})}. The €200 is paid at the garage and comes off the price, or back to you if you change your mind.</p><div class="fl"><label for="rs-n">Name</label><input class="in" id="rs-n" value="Siobhán Murphy" data-nofocus="1"></div><div class="fl"><label for="rs-m">Mobile</label><input class="in" id="rs-m" value="087 123 4567"></div>`, foot:`<span></span><button class="btn btn-wine" data-act="rsdone">Hold this car</button>` };
-  return { body:`<div class="found"><p class="q">The ${c.model} is yours until ${until.toLocaleDateString('en-IE',{weekday:'long',day:'numeric',month:'long'})}.</p><p class="muted" style="margin:0">We'll call you within the hour to arrange a time to come in.</p></div>`, foot:`<span></span><button class="btn btn-wine" data-act="done">Done</button>` };
-}
 function tradeIn(P){
   const total = 6, pct = Math.min(100, (P.step)/total*100);
   const prog = `<div class="prog"><i style="width:${pct}%"></i></div>`;
@@ -837,16 +831,16 @@ function tdSummary(){ const s = $('#panel .panel-f .small'); if (!s) return; con
 const ACTIONS = {
   pickcar: b => { PANEL.car = bySlug(b.dataset.slug); PANEL.step = 1; drawPanel(); },
   day: b => { PANEL.data.day = +b.dataset.i; pickPill(b); tdSummary(); }, time: b => { PANEL.data.time = +b.dataset.i; pickPill(b); tdSummary(); },
-  tdconfirm: () => { PANEL.step = 2; drawPanel(); },
+  tdconfirm: b => ConceptModal.open('testdrive', { from: b, onClose: () => { if (PANEL){ PANEL.step = 2; drawPanel(); } } }),
   back: () => { PANEL.step = PANEL.kind==='testdrive' ? 1 : Math.max(0, PANEL.step-1); drawPanel(); },
-  done: closePanel, rsdone: () => { PANEL.data.done = true; drawPanel(); },
+  done: closePanel,
   lookup: () => { const v = ($('#reg').value || '').trim().toUpperCase(); if (!/^\d{2,3}-?[A-Z]{1,2}-?\d{1,6}$/.test(v.replace(/\s/g,''))){ $('#reg').setAttribute('aria-invalid','true'); $('.plate').style.borderColor='#B3261E'; if (!$('#regErr')) $('.panel-b').insertAdjacentHTML('beforeend', `<p id="regErr" class="small" style="color:#B3261E;margin:0" role="alert">We couldn't read that reg. Check it and try again, for example 172-WH-1408.</p>`); $('#reg').focus(); return; }
     PANEL.data.reg = v; PANEL.step = 1; drawPanel(); setTimeout(()=>{ if (PANEL && PANEL.step===1){ PANEL.step = 2; drawPanel(); } }, 1100); },
   notmine: () => { PANEL.step = 0; PANEL.data.reg=''; drawPanel(); },
   next: () => { if (PANEL.step===3) PANEL.data.km = $('#kmIn').value; PANEL.step++; drawPanel(); },
   opt: b => { PANEL.data[b.dataset.k] = b.dataset.v; pickPill(b); },
   photo: b => { const i = +b.dataset.i; const ph = PANEL.data.ph; if (ph.includes(i)) return; ph.push(i); b.classList.add('done'); b.querySelector('path').setAttribute('stroke','#86A57F'); b.lastChild.textContent = b.lastChild.textContent.trim() + ' added'; },
-  value: () => { PANEL.data.name = $('#ti-n').value; PANEL.data.mob = $('#ti-m').value; PANEL.step = 7; drawPanel(); setTimeout(()=>{ if (PANEL && PANEL.step===7){ PANEL.step = 8; drawPanel(); } }, 1300); }
+  value: b => { PANEL.data.name = $('#ti-n').value; PANEL.data.mob = $('#ti-m').value; ConceptModal.open('tradein', { from: b, onClose: () => { if (!PANEL) return; PANEL.step = 7; drawPanel(); setTimeout(()=>{ if (PANEL && PANEL.step===7){ PANEL.step = 8; drawPanel(); } }, 1300); } }); }
 };
 // focus trap
 document.addEventListener('keydown', e => { if (e.key!=='Tab' || !PANEL) return; const f = $$('#panel button, #panel input, #panel [tabindex]').filter(x=>!x.disabled); if (!f.length) return; const first=f[0], last=f[f.length-1]; if (e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } });

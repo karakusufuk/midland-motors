@@ -3,6 +3,7 @@ import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-sans/600.css';
+import ConceptModal from '../components/ConceptModal.astro';
 import '../styles/tokens.css';
 import '../styles/app.css';
 import archivo from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
@@ -36,7 +37,8 @@ const { title, description = 'Midland Motors, Athlone. 24 used cars, every one i
   <div class="scrim" id="scrim"></div>
   <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Panel"></aside>
   <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo"><img alt="Enlarged car photo" /></div>
+  <ConceptModal />
   <script>import '../scripts/main.js';</script>
-  <p style="margin:0;padding:10px 16px;text-align:center;font:12px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.02em;background:#111;color:#c9c9c9">Portfolio demo, not a real business. Case study by Ufuk.</p>
+  <div class="foot-note-wrap stage"><div class="wrap"><div class="foot-note"><span>Portfolio demo, not a real business.</span><span>Designed by Ufuk Karakuş</span></div></div></div>
 </body>
 </html>
