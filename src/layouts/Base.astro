@@ -25,6 +25,7 @@ const { title, description = 'Midland Motors, Athlone. 24 used cars, every one i
   {poster && <link rel="preload" as="image" href="/media/hero-poster.webp" fetchpriority="high" />}
   {preload && <link rel="preload" as="image" href={preload} fetchpriority="high" />}
   {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+  <meta name="robots" content="noindex, nofollow" />
 </head>
 <body>
   <a class="skip" href="#root" style="position:absolute;left:-999px">Skip to content</a>
@@ -36,5 +37,6 @@ const { title, description = 'Midland Motors, Athlone. 24 used cars, every one i
   <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Panel"></aside>
   <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo"><img alt="Enlarged car photo" /></div>
   <script>import '../scripts/main.js';</script>
+  <p style="margin:0;padding:10px 16px;text-align:center;font:12px/1.4 ui-monospace,Menlo,monospace;letter-spacing:.02em;background:#111;color:#c9c9c9">Portfolio demo, not a real business. Case study by Ufuk.</p>
 </body>
 </html>
