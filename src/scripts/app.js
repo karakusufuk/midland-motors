@@ -282,13 +282,16 @@ function passportLine(c){
   const nct = c.year>=2023 ? 'first NCT ' + c.nctValidTo : 'NCT to ' + c.nctValidTo;
   return `${c.owners} ${c.owners===1?'owner':'owners'} · ${nct}${c.fullServiceHistory?' · full service history':''}`;
 }
+// phones (760px and under) get the still frame instead of the 2 MB intro video
+const PHONE_HERO = () => matchMedia('(max-width:760px)').matches;
 function homeHTML(){
+  const phoneHero = PHONE_HERO();
   const feat = CARS.filter(c=>c.featured).sort((a,b)=>a.featOrder-b.featOrder);
   const glc = bySlug('2022-mercedes-benz-glc-amg');
   const minM = Math.min(...CARS.map(c=>c.monthlyFrom));
   return `
   <section class="hero" id="hero" aria-label="Intro">
-    <video id="heroVid" muted playsinline preload="auto"><source src="/media/hero.mp4" type="video/mp4"><source src="/media/hero.webm" type="video/webm"></video>
+    ${phoneHero ? '<img class="poster" id="heroPoster" src="/media/hero-poster.webp" alt="" fetchpriority="high">' : '<video id="heroVid" muted playsinline preload="auto"><source src="/media/hero.mp4" type="video/mp4"><source src="/media/hero.webm" type="video/webm"></video>'}
     <div class="dots"></div><div class="topfade"></div>
     <div class="copy"><div class="wrap"><h1 class="d hero-h" aria-label="Know where it's been."><span class="w" style="--i:0" aria-hidden="true">Know</span> <span class="w" style="--i:1" aria-hidden="true">where</span> <span class="w" style="--i:2" aria-hidden="true">it's</span> <span class="w" style="--i:3" aria-hidden="true">been.</span></h1></div></div>
     <div class="loader" id="loader" hidden><svg width="96" height="96" viewBox="0 0 132 132" role="img" aria-label="Loading"><circle cx="66" cy="66" r="54" fill="none" stroke="#3D4248" stroke-width="5"/><circle class="arc" cx="66" cy="66" r="54" fill="none" stroke="#E08A99" stroke-width="5" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="339.3" transform="rotate(-90 66 66)"/><text x="66" y="74" text-anchor="middle" fill="#F2EEE8" style="font:600 24px 'IBM Plex Sans',sans-serif" id="loaderN">0</text></svg></div>
@@ -583,6 +586,12 @@ function stickyTD(){
 const HEADLIGHTS = 2.8;
 function initHome(){
   const v = $('#heroVid'), hero = $('#hero');
+  if (!v){ // phone: still frame, title and scene start at once
+    hero.classList.add('lit');
+    const io0 = new IntersectionObserver(es => { if (es[0].isIntersecting){ io0.disconnect(); startDrive(); } }, {threshold:.45});
+    io0.observe($('#drive'));
+    return;
+  }
   let first = true; try { first = !sessionStorage.getItem('mm-seen'); sessionStorage.setItem('mm-seen','1'); } catch(e){}
   if (reduce){ v.removeAttribute('autoplay'); v.addEventListener('loadeddata', ()=>{ v.currentTime = 7.9; }, {once:true}); hero.classList.add('lit'); return; }
   const loader = $('#loader');
