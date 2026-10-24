@@ -37,11 +37,34 @@ function chrome(){
     m.innerHTML = `<div class="wrap mnav-top"><a class="logo" href="/" data-menu-close aria-label="Midland Motors home">${logoSVG('#F2EEE8','#F2EEE8')}</a><button type="button" class="menu-btn" data-menu-close aria-label="Close menu"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Close</span></button></div>
       <nav class="wrap mnav-links" aria-label="Main"><a href="/" data-menu-close>Home</a><a href="/stock/" data-menu-close>Stock</a><a href="/certified/" data-menu-close>Midland Certified</a><a href="/finance/" data-menu-close>Finance</a><a href="#" data-menu-close data-panel="tradein">Value your car</a><a href="#" data-menu-close data-goto="visit">Visit</a></nav>
       <div class="wrap mnav-foot"><button class="btn btn-wine btn-lg" data-menu-close data-panel="testdrive">Book a test drive</button><span class="muted"><a href="tel:+35312345187" data-concept="phone" style="color:inherit">Call 01 234 5187</a> · <a href="#" data-concept="address" style="color:inherit">Dublin Road, Athlone</a></span></div>`;
-    document.body.appendChild(m); }
+    document.body.appendChild(m);
+    // backdrop behind the menu sheet (the sheet is a side drawer on tablets, full screen on phones); tapping it closes the menu
+    const bd = document.createElement('div'); bd.className = 'mnav-backdrop'; bd.setAttribute('data-menu-close', ''); bd.hidden = true; document.body.insertBefore(bd, m); }
 }
-function setMenu(open){ const m = $('#mnav'); m.hidden = !open; document.documentElement.classList.toggle('menu-open', open); $$('[data-menu]').forEach(b => b.setAttribute('aria-expanded', open)); if (open) setTimeout(()=>m.querySelector('.mnav-links a').focus(), 30); }
+// The menu only exists below 1100px (the menu button is hidden on desktop), so none of this runs on desktop.
+let menuFrom = null;
+function setMenu(open){
+  const m = $('#mnav'); if (!m || m.hidden === !open) return;
+  if (open) menuFrom = document.activeElement && document.activeElement.closest && document.activeElement.closest('[data-menu]');
+  m.hidden = !open; const bd = $('.mnav-backdrop'); if (bd) bd.hidden = !open;
+  document.documentElement.classList.toggle('menu-open', open); $$('[data-menu]').forEach(b => b.setAttribute('aria-expanded', open));
+  if (open) setTimeout(()=>m.querySelector('.mnav-links a').focus(), 30);
+  else { const back = (menuFrom && menuFrom.isConnected && !menuFrom.closest('[hidden]')) ? menuFrom : menuBtn(); if (back) back.focus({preventScroll:true}); menuFrom = null; }
+}
+// the menu button the visitor can see: the fixed bar's once it has slid in, otherwise the home header's
+function menuBtn(){ const bar = $('#bar'), hdr = $('#hdr'); return (bar && (bar.classList.contains('show') || !hdr || hdr.hidden)) ? $('#bar [data-menu]') : $('#hdr [data-menu]'); }
 document.addEventListener('click', e => { if (e.target.closest('[data-menu]')) setMenu(true); else if (e.target.closest('[data-menu-close]')) setMenu(false); });
-document.addEventListener('keydown', e => { if (e.key==='Escape' && $('#mnav') && !$('#mnav').hidden) setMenu(false); });
+document.addEventListener('keydown', e => {
+  const m = $('#mnav'); if (!m || m.hidden) return;
+  if (e.key==='Escape'){ setMenu(false); return; }
+  if (e.key!=='Tab') return;
+  const f = $$('a[href],button', m).filter(x => x.offsetParent); if (!f.length) return;
+  const first = f[0], last = f[f.length-1], a = document.activeElement;
+  if (!m.contains(a)){ e.preventDefault(); first.focus(); }
+  else if (e.shiftKey && a===first){ e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && a===last){ e.preventDefault(); first.focus(); }
+});
+matchMedia('(min-width:1101px)').addEventListener('change', q => { if (q.matches) setMenu(false); });
 function footerHTML(){
   return `<footer class="foot stage" id="visit-${Math.random().toString(36).slice(2,7)}" data-visit>
   <div class="wrap">
@@ -523,6 +546,7 @@ function onScroll(){
 }
 window.addEventListener('scroll', onScroll, {passive:true});
 let footVisible = false, footObs = null;
+const TOUCH_UI = matchMedia('(max-width:1100px)');
 function observeFooter(){
   if (footObs) footObs.disconnect();
   const f = $('[data-visit]'); if (!f) return;
@@ -535,6 +559,9 @@ function stickyTD(){
   if (STATE.page==='home'){ const rows = $('.rows'); show = rows && rows.getBoundingClientRect().bottom < innerHeight*0.6; }
   else if (STATE.page==='car'){ const bb = $('.buybox'); show = bb ? bb.getBoundingClientRect().bottom < 0 : window.scrollY > 500; }
   else show = window.scrollY > 500;
+  // Touch sizes: the button is a bottom bar there, and flying it onto the footer button lands in the wrong place while
+  // momentum-scrolling, so it simply hides once the footer (with its own test-drive button) is on screen.
+  if (footVisible && show && TOUCH_UI.matches){ s.classList.remove('show'); return; }
   if (footVisible && show){
     // morph into footer button
     const target = $('.foot-td'); const b = s.querySelector('.btn');
@@ -609,6 +636,15 @@ function startDrive(){
   const S = STOPS(), last = S.length-1;
   stopsEl.innerHTML = S.map((s,i)=>`<div class="stop ${i===last?'last':''}"><div class="node"></div><div class="lab"><span class="dt">${s[0]}</span><span class="tt">${s[1]}</span></div></div>`).join('');
   const stopEls = $$('.stop', stopsEl);
+  // Phones (the scene's own "narrow" layout, under 760px): a stop label crossing a 390px screen at road speed is on
+  // screen for under two seconds and can't be read, so the stops are listed under the road instead, all of them,
+  // while the car still drives in and parks. Desktop and tablet keep the travelling stops.
+  let list = $('#driveList');
+  if (narrow){
+    if (!list){ list = document.createElement('ol'); list.id = 'driveList'; list.className = 'drive-list'; wrap.after(list); }
+    list.innerHTML = S.map((s,i)=>`<li class="${i===last?'last':''}" style="--i:${i}"><span class="dt">${s[0]}</span><span class="tt">${s[1]}</span></li>`).join('');
+    list.classList.remove('run'); void list.offsetWidth; list.classList.add('run');
+  } else if (list) list.remove();
   if (reduce){
     car.style.transform = `translateX(${carX}px)`; stopEls.forEach((e,i)=>{ e.style.transform = `translateX(${i===last?centreX:-600}px)`; e.style.opacity = i===last?1:0; });
     brand.classList.add('draw'); cta.classList.add('show'); return;
@@ -618,7 +654,8 @@ function startDrive(){
   const ENTER = 0.9, startX = W + 150, GAP = W + 260;  // one stop on screen at a time
   const restX = centreX, DEC = 1.7;
   const spawnP = S.map((_,i)=> V*1.0 + i*GAP);          // road position at which stop i appears at startX
-  const pStop = spawnP[last] + (startX - restX);        // road position where the last stop rests under the car
+  // narrow: no travelling stops, so a short drive (about a second at speed, then the same ease to a halt)
+  const pStop = narrow ? V*(1 + DEC/2) : spawnP[last] + (startX - restX); // road position where the last stop rests under the car
   const tDec = (pStop - V*DEC/2)/V, tStop = tDec + DEC; // constant speed, then ease to a halt landing exactly on pStop
   const posAt = t => t<=tDec ? V*t : t<=tStop ? V*tDec + V*((t-tDec) - (t-tDec)**2/(2*DEC)) : pStop;
   const vAt = t => t<tDec ? V : t<tStop ? V*(1-(t-tDec)/DEC) : 0;
@@ -646,7 +683,7 @@ function startDrive(){
     tint.style.opacity = 1; requestAnimationFrame(()=> tint.style.backgroundPosition = '-40% 0');
     setTimeout(()=>{ tint.style.transition = 'opacity .6s'; tint.style.opacity = 0; }, 1650);
     setTimeout(()=> brand.classList.add('draw'), 900);
-    setTimeout(()=> cta.classList.add('show'), 2300);
+    setTimeout(()=> cta.classList.add('show'), narrow ? 700 : 2300); // phones: the short run ends sooner, so the buttons follow sooner
   }
   driveRAF = requestAnimationFrame(step);
 }
@@ -732,6 +769,15 @@ document.addEventListener('keydown', e => {
   const cur = Math.max(0, c.photos.findIndex(p => img.src.endsWith(p))); const n = c.photos.length;
   img.src = c.photos[(cur + (e.key === 'ArrowRight' ? 1 : n - 1)) % n]; e.preventDefault();
 });
+// Touch: the arrow keys' photo stepping as a swipe (touch events only, so mouse use is unchanged). A tap still closes.
+let lbX = null;
+document.addEventListener('touchstart', e => { if (e.target.closest && e.target.closest('#lightbox.on') && e.touches.length===1) lbX = e.touches[0].clientX; }, {passive:true});
+document.addEventListener('touchend', e => {
+  if (lbX===null) return; const dx = e.changedTouches[0].clientX - lbX; lbX = null; if (Math.abs(dx) < 40) return;
+  const c = bySlug(STATE.car), img = $('#lightbox img'); if (!c || !img) return;
+  const n = c.photos.length, cur = Math.max(0, c.photos.findIndex(p => img.src.endsWith(p)));
+  img.src = c.photos[(cur + (dx < 0 ? 1 : n - 1)) % n];
+}, {passive:true});
 
 /* ---------- certified / finance ---------- */
 function initCertified(){
@@ -767,6 +813,8 @@ document.addEventListener('click', e => {
 /* ---------- panels ---------- */
 let PANEL = null, opener = null;
 function openPanel(kind, from){
+  // opened from the mobile menu (which closes): hand focus back to the visible menu button afterwards
+  if (from && from.closest && from.closest('#mnav')) from = menuBtn() || from;
   opener = from; PANEL = {kind, step:0, data:{}};
   if (kind==='testdrive'){ PANEL.car = STATE.page==='car' ? bySlug(STATE.car) : null; PANEL.step = PANEL.car ? 1 : 0; }
   $('#scrim').classList.add('on'); $('#panel').classList.add('on'); $('#panel').setAttribute('aria-hidden','false');
