@@ -630,7 +630,7 @@ function gravelTile(){
     d += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${(r*1.25).toFixed(2)}" ry="${r.toFixed(2)}" fill="#F2EEE8" fill-opacity="${o}"/>`; }
   return `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='54'>${d}</svg>`)}")`;
 }
-let driveRAF = null;
+let driveRAF = null, driveRun = 0;
 function stopDrive(){ if (driveRAF) cancelAnimationFrame(driveRAF); driveRAF = null; }
 function startDrive(){
   stopDrive();
@@ -643,8 +643,16 @@ function startDrive(){
   brand.classList.remove('draw'); const narrow = W < 760; brand.classList.toggle('narrow', narrow); brand.style.left = narrow ? '50%' : (carX + carW + Math.max(36, W*0.035)) + 'px';
   tint.className = 'tint'; tint.style.cssText = ''; cta.classList.remove('show');
   const S = STOPS(), last = S.length-1;
-  stopsEl.innerHTML = S.map((s,i)=>`<div class="stop ${i===last?'last':''}"><div class="node"></div><div class="lab"><span class="dt">${s[0]}</span><span class="tt">${s[1]}</span></div></div>`).join('');
+  stopsEl.innerHTML = S.map((s,i)=>`<div class="stop ${i===last?'last':''}"><div class="node"></div></div>`).join('');
   const stopEls = $$('.stop', stopsEl);
+  // Wide screens: the lower area is divided into equal columns, one per stage. The text of a stage fades in inside its own
+  // column when the car reaches that stage's dot; only the dots travel.
+  const run = ++driveRun;
+  let cols = $('#cols'); if (cols) cols.remove();
+  cols = document.createElement('div'); cols.id = 'cols'; cols.className = 'cols'; cols.style.setProperty('--n', S.length);
+  cols.innerHTML = S.map((s,i)=>`<div class="col ${i===last?'last':''}"><span class="dt">${s[0]}</span><span class="tt">${s[1]}</span></div>`).join('');
+  if (!narrow) wrap.appendChild(cols);
+  const colEls = $$('.col', cols), shown = S.map(()=>false);
   // Phones (the scene's own "narrow" layout, under 760px): a stop label crossing a 390px screen at road speed is on
   // screen for under two seconds and can't be read, so the stops are listed under the road instead, all of them,
   // while the car still drives in and parks. Desktop and tablet keep the travelling stops.
@@ -656,35 +664,41 @@ function startDrive(){
   } else if (list) list.remove();
   if (reduce){
     car.style.transform = `translateX(${carX}px)`; stopEls.forEach((e,i)=>{ e.style.transform = `translateX(${i===last?centreX:-600}px)`; e.style.opacity = i===last?1:0; });
-    brand.classList.add('draw'); cta.classList.add('show'); return;
+    colEls.forEach(c => c.classList.add('on')); brand.classList.add('draw'); cta.classList.add('show'); return;
   }
   // One road: the gravel and the history stops travel together, at one speed, entering off the right edge and leaving off the left.
-  const V = Math.max(300, W*0.25);                     // px/s
-  const ENTER = 0.9, startX = W + 150, GAP = W + 260;  // one stop on screen at a time
+  const V = Math.max(300, W*0.25);                     // px/s: the car (gravel and wheels), unchanged
+  const Vm = narrow ? V : V*1.3;                       // px/s: the dots run a little faster than the road
+  const kRoad = V/Vm;
+  const ENTER = 0.9, startX = W + 40, GAP = narrow ? W + 260 : Vm*2.8; // about 2.8 s between one dot reaching the car and the next
   const restX = centreX, DEC = 1.7;
-  const spawnP = S.map((_,i)=> V*1.0 + i*GAP);          // road position at which stop i appears at startX
+  const spawnP = S.map((_,i)=> Vm*0.5 + i*GAP);         // dot position at which stop i appears at startX
   // narrow: no travelling stops, so a short drive (about a second at speed, then the same ease to a halt)
-  const pStop = narrow ? V*(1 + DEC/2) : spawnP[last] + (startX - restX); // road position where the last stop rests under the car
-  const tDec = (pStop - V*DEC/2)/V, tStop = tDec + DEC; // constant speed, then ease to a halt landing exactly on pStop
-  const posAt = t => t<=tDec ? V*t : t<=tStop ? V*tDec + V*((t-tDec) - (t-tDec)**2/(2*DEC)) : pStop;
-  const vAt = t => t<tDec ? V : t<tStop ? V*(1-(t-tDec)/DEC) : 0;
+  const pStop = narrow ? V*(1 + DEC/2) : spawnP[last] + (startX - restX); // position where the last dot rests under the car
+  const tDec = (pStop - Vm*DEC/2)/Vm, tStop = tDec + DEC; // constant speed, then ease to a halt landing exactly on pStop
+  const posAt = t => t<=tDec ? Vm*t : t<=tStop ? Vm*tDec + Vm*((t-tDec) - (t-tDec)**2/(2*DEC)) : pStop;
+  const vAt = t => t<tDec ? Vm : t<tStop ? Vm*(1-(t-tDec)/DEC) : 0;
   let t0 = null, rot = 0, lastT = 0, done = false;
   const step = now => {
     if (t0===null) t0 = now; const t = (now - t0)/1000, dt = Math.min(.05, t - lastT); lastT = t;
     const p = posAt(t), v = vAt(t);
-    road.style.backgroundPosition = `${(-p).toFixed(1)}px 0`;
+    road.style.backgroundPosition = `${(-p*kRoad).toFixed(1)}px 0`;
     const k = Math.min(1, t/ENTER), e = 1 - Math.pow(1-k, 3);
     car.style.transform = `translateX(${(-carW - 60 + (carX + carW + 60)*e).toFixed(1)}px)`;
-    rot += v * dt / wheelR * 180/Math.PI;
-    const bl = (v/V*0.5).toFixed(2);                    // light motion blur on the spinning wheels hides the strobing highlight
+    rot += v * kRoad * dt / wheelR * 180/Math.PI;
+    const bl = (v*kRoad/V*0.5).toFixed(2);                    // light motion blur on the spinning wheels hides the strobing highlight
     wheels.forEach(w => { w.style.transform = `rotate(${rot.toFixed(2)}deg)`; w.style.filter = v>2 ? `blur(${bl}px)` : 'none'; });
     bob.style.transform = `translateY(${(v>5 ? Math.sin(t*7.5)*0.8 + Math.sin(t*2.3)*0.5 : 0).toFixed(2)}px)`;
     stopEls.forEach((el,i) => {
       const x = startX - (p - spawnP[i]);
       el.style.opacity = (x > W + 140 || x < -160) ? 0 : 1;
       el.style.transform = `translateX(${x.toFixed(1)}px)`;
+      if (!narrow && !shown[i] && x <= centreX + 16){ shown[i] = true; colEls[i].classList.add('on'); }
     });
-    if (t > tStop + 0.1 && !done){ done = true; finish(); }
+    if (t > tStop + 0.1 && !done){ done = true; if (narrow) finish(); else {
+      // everything shown: hold, let all the texts leave together, then the scan, the brand and the buttons as before
+      setTimeout(()=>{ if (run !== driveRun) return; cols.classList.add('out'); setTimeout(()=>{ if (run === driveRun) finish(); }, 800); }, 2800);
+    } }
     if (t < tStop + 0.4) driveRAF = requestAnimationFrame(step);
   };
   function finish(){

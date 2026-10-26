@@ -111,10 +111,10 @@ button{font:inherit;color:inherit}
 .drive{position:relative;overflow:hidden;padding:104px 0 88px}
 .drive-head{text-align:center;display:flex;justify-content:center}
 .drive-head .h2{white-space:nowrap;font-size:clamp(26px,3.4vw,50px)}
-.road-wrap{position:relative;height:430px;margin-top:36px}
-.road{position:absolute;left:0;right:0;bottom:140px;height:54px;background-color:transparent;background-repeat:repeat-x;background-position:0 0;border-bottom:2px solid #4A4F56;z-index:1}
+.road-wrap{position:relative;height:470px;margin-top:36px}
+.road{position:absolute;left:0;right:0;bottom:180px;height:54px;background-color:transparent;background-repeat:repeat-x;background-position:0 0;border-bottom:2px solid #4A4F56;z-index:1}
 .road::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(48,52,58,0),#30353B 90%);z-index:-1}
-.car{position:absolute;bottom:142px;margin-bottom:-.65%;width:min(620px,46vw);aspect-ratio:1383/524;left:0;z-index:3;will-change:transform}
+.car{position:absolute;bottom:182px;margin-bottom:-.65%;width:min(620px,46vw);aspect-ratio:1383/524;left:0;z-index:3;will-change:transform}
 .car .bob{position:absolute;left:0;top:0;width:100%;aspect-ratio:1383/433;z-index:2;will-change:transform}
 .car .body{width:100%;height:100%;display:block;position:relative;z-index:2}
 .car .tint{position:absolute;inset:0;z-index:3;background:linear-gradient(100deg,rgba(134,165,127,0) 0%,rgba(150,196,140,.95) 45%,rgba(134,165,127,0) 70%);background-size:300% 100%;background-position:120% 0;-webkit-mask:url(/img/car-body.webp) center/100% 100% no-repeat;mask:url(/img/car-body.webp) center/100% 100% no-repeat;mix-blend-mode:screen;opacity:0}
@@ -122,15 +122,19 @@ button{font:inherit;color:inherit}
 .car .wheel{position:absolute;z-index:3;width:18.2%;aspect-ratio:1;top:51.9%}
 .car .wheel img{width:100%;height:100%;display:block}
 .car .shadow{position:absolute;left:5%;right:4%;bottom:-2.5%;height:7%;background:radial-gradient(closest-side,rgba(0,0,0,.65),transparent);z-index:0}
-.stops{position:absolute;left:0;right:0;bottom:141px;height:0;z-index:2}
+.stops{position:absolute;left:0;right:0;bottom:181px;height:0;z-index:2}
 .stop{position:absolute;left:0;top:-8px;width:0;will-change:transform,opacity;opacity:0}
 .stop .node{position:absolute;left:-8px;top:0;width:16px;height:16px;border-radius:50%;background:var(--stage);border:3px solid var(--wine-on-dark)}
-.stop .lab{position:absolute;top:44px;left:-140px;width:280px;display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center}
-.stop .dt{font-size:15px;font-weight:600;color:var(--wine-on-dark);letter-spacing:.03em}
-.stop .tt{font-size:19px;font-weight:500;color:var(--bone);line-height:1.3}
+/* the lower area: one equal column per stage, text fades in when the car reaches its dot; dates all start on the same line */
+.cols{position:absolute;left:max(24px,calc((100% - 1312px)/2 + 24px));right:max(24px,calc((100% - 1312px)/2 + 24px));bottom:12px;height:132px;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:0 clamp(16px,2.2vw,36px);z-index:2;pointer-events:none}
+.col{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:6px;text-align:left;opacity:0;transition:opacity .8s ease}
+.col.on{opacity:1}
+.cols.out .col{opacity:0;transition:opacity .7s ease}
+.col .dt{font-size:clamp(15px,1.3vw,19px);font-weight:600;color:var(--wine-on-dark);letter-spacing:.03em;line-height:1.3}
+.col .tt{font-size:clamp(18px,1.75vw,25px);font-weight:500;color:var(--bone);line-height:1.28}
+.col.last .dt{color:var(--pass)}
 .stop.last .node{background:var(--pass);border-color:var(--pass);box-shadow:0 0 0 7px rgba(134,165,127,.2)}
-.stop.last .dt{color:var(--pass)}
-.brand{position:absolute;bottom:250px;z-index:3;display:flex;align-items:center;gap:16px;opacity:1}
+.brand{position:absolute;bottom:290px;z-index:3;display:flex;align-items:center;gap:16px;opacity:1}
 .brand svg .mk-ring{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transform:rotate(-90deg);transform-box:fill-box;transform-origin:50% 50%}
 .brand svg .mk-dot{transform:scale(0);transform-box:fill-box;transform-origin:50% 50%}
 .brand.draw svg .mk-ring{transition:stroke-dashoffset 1.1s var(--ease);stroke-dashoffset:0}
@@ -462,11 +466,9 @@ html.menu-open{overflow:hidden}
 }
 @media (max-width:760px){
   .car{width:min(560px,78vw)}
-  .road-wrap{height:400px}
+  .road-wrap{height:440px}
   .brand.narrow{bottom:auto;top:0;transform:translateX(-50%);gap:12px}
   .brand.narrow svg{width:44px;height:44px}
-  .stop .lab{left:-120px;width:240px}
-  .stop .tt{font-size:17px}
 }
 @media (max-width:640px){
   .mnav .logo svg{width:170px;height:auto}
