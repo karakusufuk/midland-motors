@@ -291,7 +291,7 @@ function homeHTML(){
   const minM = Math.min(...CARS.map(c=>c.monthlyFrom));
   return `
   <section class="hero" id="hero" aria-label="Intro">
-    ${phoneHero ? '<img class="poster" id="heroPoster" src="/media/hero-poster.webp" alt="" fetchpriority="high">' : '<video id="heroVid" muted playsinline preload="auto"><source src="/media/hero.mp4" type="video/mp4"><source src="/media/hero.webm" type="video/webm"></video>'}
+    ${phoneHero ? '<img class="poster" id="heroPoster" src="/media/hero-poster.webp" alt="" fetchpriority="high">' : '<video id="heroVid" muted playsinline preload="auto" src="/media/hero.mp4"></video><video id="heroLoop" muted playsinline loop preload="auto" src="/media/hero-loop.mp4" style="opacity:0"></video>'}
     <div class="dots"></div><div class="topfade"></div>
     <div class="copy"><div class="wrap"><h1 class="d hero-h" aria-label="Know where it's been."><span class="w" style="--i:0" aria-hidden="true">Know</span> <span class="w" style="--i:1" aria-hidden="true">where</span> <span class="w" style="--i:2" aria-hidden="true">it's</span> <span class="w" style="--i:3" aria-hidden="true">been.</span></h1></div></div>
     <div class="loader" id="loader" hidden><svg width="96" height="96" viewBox="0 0 132 132" role="img" aria-label="Loading"><circle cx="66" cy="66" r="54" fill="none" stroke="#3D4248" stroke-width="5"/><circle class="arc" cx="66" cy="66" r="54" fill="none" stroke="#E08A99" stroke-width="5" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="339.3" transform="rotate(-90 66 66)"/><text x="66" y="74" text-anchor="middle" fill="#F2EEE8" style="font:600 24px 'IBM Plex Sans',sans-serif" id="loaderN">0</text></svg></div>
@@ -593,7 +593,17 @@ function initHome(){
     return;
   }
   let first = true; try { first = !sessionStorage.getItem('mm-seen'); sessionStorage.setItem('mm-seen','1'); } catch(e){}
-  if (reduce){ v.removeAttribute('autoplay'); v.addEventListener('loadeddata', ()=>{ v.currentTime = 7.9; }, {once:true}); hero.classList.add('lit'); return; }
+  // after the intro ends, a seamless still-camera loop (headlights on, ambient life) takes over
+  const lv = $('#heroLoop');
+  // the loop starts underneath the intro's last frame and is only revealed once it has painted a frame of its own: no jump, no black
+  const toLoop = () => {
+    if (!lv) return;
+    lv.currentTime = 0;
+    const show = () => { lv.style.opacity = '1'; };
+    const go = () => { let done = false; const f = () => { if (!done){ done = true; show(); } }; if (lv.requestVideoFrameCallback) lv.requestVideoFrameCallback(f); setTimeout(f, 250); };
+    lv.play().then(go).catch(show);
+  };
+  if (reduce){ v.removeAttribute('autoplay'); v.addEventListener('loadeddata', ()=>{ v.currentTime = v.duration ? v.duration - 0.05 : 8.9; }, {once:true}); hero.classList.add('lit'); return; }
   const loader = $('#loader');
   if (first){
     loader.hidden = false; const t0 = performance.now(); let n = 0;
@@ -608,7 +618,7 @@ function initHome(){
     }; tick();
   } else v.play().catch(()=>{});
   v.addEventListener('timeupdate', () => { if (v.currentTime >= HEADLIGHTS) hero.classList.add('lit'); });
-  v.addEventListener('ended', () => hero.classList.add('lit'));
+  v.addEventListener('ended', () => { hero.classList.add('lit'); toLoop(); });
   setTimeout(()=>{ if (v.paused && v.currentTime===0) hero.classList.add('lit'); }, 4000);
   // drive starts when stage enters view
   const io = new IntersectionObserver(es => { if (es[0].isIntersecting){ io.disconnect(); startDrive(); } }, {threshold:.45});
