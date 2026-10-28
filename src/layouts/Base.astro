@@ -23,7 +23,7 @@ const { title, description = 'Midland Motors, Athlone. 24 used cars, every one i
   <meta name="theme-color" content="#24272B" />
   <link rel="icon" type="image/svg+xml" href="/logo/favicon.svg" />
   <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? 'https://midlandmotors.example').href} />
-  {poster && <link rel="preload" as="image" href="/media/hero-poster.webp" fetchpriority="high" />}
+  {poster && <link rel="preload" as="image" href="/media/hero-poster.webp?v=plate2" fetchpriority="high" />}
   {preload && <link rel="preload" as="image" href={preload} fetchpriority="high" />}
   {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
   <meta name="robots" content="noindex, nofollow" />
