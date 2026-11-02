@@ -3,7 +3,6 @@ import '@fontsource-variable/archivo/wdth.css';
 import '@fontsource/ibm-plex-sans/400.css';
 import '@fontsource/ibm-plex-sans/500.css';
 import '@fontsource/ibm-plex-sans/600.css';
-import ConceptModal from '../components/ConceptModal.astro';
 import '../styles/tokens.css';
 import '../styles/app.css';
 import archivo from '@fontsource-variable/archivo/files/archivo-latin-wdth-normal.woff2?url';
@@ -17,6 +16,7 @@ const { title, description = 'Midland Motors, Athlone. 24 used cars, every one i
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="format-detection" content="telephone=no, address=no, email=no" />
   <title>{title}</title>
   <meta name="description" content={description} />
   {[archivo, plex400, plex500, plex600].map(f => <link rel="preload" as="font" type="font/woff2" href={f} crossorigin />)}
@@ -37,7 +37,6 @@ const { title, description = 'Midland Motors, Athlone. 24 used cars, every one i
   <div class="scrim" id="scrim"></div>
   <aside class="panel" id="panel" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Panel"></aside>
   <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo"><img alt="Enlarged car photo" /></div>
-  <ConceptModal />
   <script>import '../scripts/main.js';</script>
   <div class="foot-note-wrap stage"><div class="wrap"><div class="foot-note"><span>Portfolio demo, not a real business.</span><span>Designed by Ufuk Karakuş</span></div></div></div>
 </body>

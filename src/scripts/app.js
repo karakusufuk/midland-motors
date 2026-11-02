@@ -31,12 +31,12 @@ function navLinks(){
   return `<a href="/stock/" data-nav="stock">Stock</a><a href="/certified/" data-nav="certified">Midland Certified</a><a href="/finance/" data-nav="finance">Finance</a><a href="#" data-panel="tradein">Value your car</a><a href="#" data-goto="visit">Visit</a>`;
 }
 function chrome(){
-  $('#hdr').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#F2EEE8','#F2EEE8')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><a class="phone" href="tel:+35312345187" data-concept="phone">01 234 5187</a><button class="btn btn-bone" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
-  $('#bar').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#8C2B3C','#1C1E21')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><a class="phone" href="tel:+35312345187" data-concept="phone">01 234 5187</a><button class="btn btn-wine" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
+  $('#hdr').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#F2EEE8','#F2EEE8')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><a class="phone" data-concept="phone">01 234 5187</a><button class="btn btn-bone" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
+  $('#bar').innerHTML = `<div class="wrap hdr-in"><a class="logo" href="/" aria-label="Midland Motors home">${logoSVG('#8C2B3C','#1C1E21')}</a><nav class="nav" aria-label="Main">${navLinks()}</nav><a class="phone" data-concept="phone">01 234 5187</a><button class="btn btn-wine" data-panel="testdrive">Book a test drive</button><button type="button" class="menu-btn" data-menu aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" aria-hidden="true"><path d="M1 1.5H17M1 10.5H17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button></div>`;
   if (!$('#mnav')){ const m = document.createElement('div'); m.id = 'mnav'; m.className = 'mnav stage'; m.setAttribute('role','dialog'); m.setAttribute('aria-modal','true'); m.setAttribute('aria-label','Menu'); m.hidden = true;
     m.innerHTML = `<div class="wrap mnav-top"><a class="logo" href="/" data-menu-close aria-label="Midland Motors home">${logoSVG('#F2EEE8','#F2EEE8')}</a><button type="button" class="menu-btn" data-menu-close aria-label="Close menu"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Close</span></button></div>
       <nav class="wrap mnav-links" aria-label="Main"><a href="/" data-menu-close>Home</a><a href="/stock/" data-menu-close>Stock</a><a href="/certified/" data-menu-close>Midland Certified</a><a href="/finance/" data-menu-close>Finance</a><a href="#" data-menu-close data-panel="tradein">Value your car</a><a href="#" data-menu-close data-goto="visit">Visit</a></nav>
-      <div class="wrap mnav-foot"><button class="btn btn-wine btn-lg" data-menu-close data-panel="testdrive">Book a test drive</button><span class="muted"><a href="tel:+35312345187" data-concept="phone" style="color:inherit">Call 01 234 5187</a> · <a href="#" data-concept="address" style="color:inherit">Dublin Road, Athlone</a></span></div>`;
+      <div class="wrap mnav-foot"><button class="btn btn-wine btn-lg" data-menu-close data-panel="testdrive">Book a test drive</button><span class="muted"><a data-concept="phone" style="color:inherit">Call 01 234 5187</a> · <a data-concept="address" style="color:inherit">Dublin Road, Athlone</a></span></div>`;
     document.body.appendChild(m);
     // backdrop behind the menu sheet (the sheet is a side drawer on tablets, full screen on phones); tapping it closes the menu
     const bd = document.createElement('div'); bd.className = 'mnav-backdrop'; bd.setAttribute('data-menu-close', ''); bd.hidden = true; document.body.insertBefore(bd, m); }
@@ -71,14 +71,14 @@ function footerHTML(){
     <div class="foot-grid">
       <div style="display:flex;flex-direction:column;gap:26px;align-items:flex-start">
         <h2 class="d" style="font-size:clamp(44px,5.4vw,80px)">Visit us in Athlone.</h2>
-        <p style="margin:0;font-size:18px"><a href="#" data-concept="address" style="color:inherit;text-decoration:none">Dublin Road, Athlone, Co. Westmeath N37</a><br><span class="muted">Five minutes from junction 9 on the M6.</span></p>
+        <p style="margin:0;font-size:18px"><a data-concept="address" style="color:inherit;text-decoration:none">Dublin Road, Athlone, Co. Westmeath N37</a><br><span class="muted">Five minutes from junction 9 on the M6.</span></p>
         <span class="open-now" data-open><i></i><span>Open now</span></span>
         <div class="hours"><span class="muted">Monday to Friday</span><span>9am – 6pm</span><span class="muted">Saturday</span><span>9.30am – 5pm</span><span class="muted">Sunday</span><span>Closed</span></div>
-        <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn btn-wine foot-td" data-panel="testdrive">Book a test drive</button><a class="btn btn-line" href="tel:+35312345187">Call the workshop · 01 234 5187</a></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn btn-wine foot-td" data-panel="testdrive">Book a test drive</button><button type="button" class="btn btn-line" data-concept="phone">Call the workshop · 01 234 5187</button></div>
       </div>
       <div>
-        <a href="#" data-concept="address" class="map-link" aria-label="Open directions to the showroom"><div class="map">${mapSVG()}</div></a>
-        <a class="link" style="display:inline-block;margin-top:16px" href="#" data-concept="address">Get directions</a>
+        <div data-concept="address" class="map-link"><div class="map">${mapSVG()}</div></div>
+        <a class="link" style="display:inline-block;margin-top:16px" data-concept="address">Get directions</a>
       </div>
     </div>
     <div class="foot-bottom">${logoSVG('#F2EEE8','#F2EEE8')}<span>© 2026 Midland Motors</span><a href="/privacy/" style="color:inherit">Privacy</a></div>
@@ -118,19 +118,21 @@ function cbHTML(id, cls=''){
   return `<div class="cb ${cls}" data-cb="${id}"><button type="button" class="cb-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="${id}-l">${m.label!==''?`<span class="cb-txt"><span class="cb-lab">${m.label}</span><span class="cb-val">${m.display()}</span></span>`:`<span class="cb-txt"><span class="cb-val">${m.display()}</span></span>`}<span class="cb-ch">${CHEV}</span></button><div class="cb-list" id="${id}-l" role="listbox" tabindex="-1" aria-label="${m.label || 'Options'}"></div></div>`;
 }
 function combo(label, options, value, cls='', onChange){
-  const id = 'cb' + (++cbId); let cur = value;
-  CBM[id] = { label, display:()=>cur, view:()=>({items:options.map(o=>({v:o,label:o,sel:o===cur}))}), pick:v=>{ cur=v; onChange && onChange(v); } };
+  const id = 'cb' + (++cbId); let cur = value, picked = false;
+  CBM[id] = { label, display:()=>cur, view:()=>({items:options.map(o=>({v:o,label:o,sel:picked && o===cur}))}), pick:v=>{ cur=v; picked = true; onChange && onChange(v); } };
   return cbHTML(id, cls);
 }
 function renderList(cb){
   const id = cb.dataset.cb, m = CBM[id], v = m.view(), L = cb.querySelector('.cb-list');
+  // only a user's own pick is marked; "Any", "No min" and the default sort never look selected
   L.innerHTML = (v.title ? `<div class="cb-step">${v.back?`<button type="button" class="cb-back" data-back aria-label="Back">${BACK}</button>`:''}<span>${v.title}</span></div>` : '')
     + `<ul>${v.items.map((it,i)=>`<li role="option" id="${id}-o${i}" data-v="${it.v}" aria-selected="${!!it.sel}">${it.label}${it.n!=null?`<span class="cb-n">${it.n}</span>`:''}</li>`).join('')}</ul>`;
-  setAct(cb, cb.querySelector('li[aria-selected=true]') || cb.querySelector('li'));
+  // the keyboard cursor row only shows when the list is driven from the keyboard; a tap or click starts with nothing highlighted
+  setAct(cb, cb.dataset.kb ? (cb.querySelector('li[aria-selected=true]') || cb.querySelector('li')) : null);
 }
 function refreshCb(){ $$('.cb').forEach(cb => { const m = CBM[cb.dataset.cb]; if (!m) return; cb.querySelector('.cb-val').textContent = m.display(); const l = cb.querySelector('.cb-lab'); if (l) l.textContent = m.label; }); }
 function closeAllCb(except){ $$('.cb.open').forEach(c => { if (c!==except){ c.classList.remove('open'); c.querySelector('.cb-btn').setAttribute('aria-expanded','false'); const m = CBM[c.dataset.cb]; m && m.reset && m.reset(); } }); }
-function openCb(cb){ closeAllCb(cb); const m = CBM[cb.dataset.cb]; m.reset && m.reset(); renderList(cb); const r = cb.getBoundingClientRect(); cb.classList.toggle('up', innerHeight - r.bottom < 340 && r.top > 380); cb.classList.add('open'); cb.querySelector('.cb-btn').setAttribute('aria-expanded','true'); }
+function openCb(cb, kb){ closeAllCb(cb); const m = CBM[cb.dataset.cb]; m.reset && m.reset(); if (kb) cb.dataset.kb = '1'; else delete cb.dataset.kb; renderList(cb); const r = cb.getBoundingClientRect(); cb.classList.toggle('up', innerHeight - r.bottom < 340 && r.top > 380); cb.classList.add('open'); cb.querySelector('.cb-btn').setAttribute('aria-expanded','true'); }
 document.addEventListener('click', e => {
   const inList = e.target.closest('.cb-list');
   if (inList){ const cb = inList.closest('.cb');
@@ -140,7 +142,7 @@ document.addEventListener('click', e => {
   if (btn){ const cb = btn.closest('.cb'); if (cb.classList.contains('open')) closeAllCb(); else openCb(cb); return; }
   closeAllCb();
 });
-function setAct(cb, li){ cb.querySelectorAll('li').forEach(x=>x.classList.toggle('act', x===li)); if (li){ li.scrollIntoView({block:'nearest'}); cb.querySelector('.cb-btn').setAttribute('aria-activedescendant', li.id); } }
+function setAct(cb, li){ cb.querySelectorAll('li').forEach(x=>x.classList.toggle('act', x===li)); const b = cb.querySelector('.cb-btn'); if (li){ li.scrollIntoView({block:'nearest'}); b.setAttribute('aria-activedescendant', li.id); } else b.removeAttribute('aria-activedescendant'); }
 function pick(cb, li){
   const m = CBM[cb.dataset.cb]; const keep = m.pick(li.dataset.v) === 'keep';
   refreshCb();
@@ -151,7 +153,7 @@ document.addEventListener('keydown', e => {
   const cb = e.target.closest && e.target.closest('.cb'); if (!cb) { if (e.key==='Escape') { closeAllCb(); closePanel(); } return; }
   const lis = $$('li', cb); const act = cb.querySelector('li.act'); let i = lis.indexOf(act);
   const open = cb.classList.contains('open');
-  if (['ArrowDown','ArrowUp'].includes(e.key)){ e.preventDefault(); if (!open){ openCb(cb); return; } i = Math.max(0, Math.min(lis.length-1, i + (e.key==='ArrowDown'?1:-1))); setAct(cb, lis[i]); }
+  if (['ArrowDown','ArrowUp'].includes(e.key)){ e.preventDefault(); if (!open){ openCb(cb, true); return; } cb.dataset.kb = '1'; i = Math.max(0, Math.min(lis.length-1, i + (e.key==='ArrowDown'?1:-1))); setAct(cb, lis[i]); }
   else if (e.key==='Enter' || e.key===' '){ if (open && act){ e.preventDefault(); pick(cb, act); cb.querySelector('.cb-btn').focus(); } }
   else if (e.key==='Backspace' && open && cb.querySelector('[data-back]')){ e.preventDefault(); CBM[cb.dataset.cb].back(); renderList(cb); }
   else if (e.key==='Escape'){ closeAllCb(); cb.querySelector('.cb-btn').focus(); }
@@ -169,9 +171,9 @@ function makeModelCombo(){
   CBM[id] = { label:'Make & model',
     display:()=> !F().make ? 'Any make' : F().model ? `${F().make} ${F().model}` : `${F().make}, any model`,
     view:()=>{
-      if (step==='make') return { items:[{v:'',label:'Any make',sel:!F().make}, ...MAKES.map(m=>({v:m,label:m,sel:F().make===m,n:CARS.filter(c=>c.make===m).length}))] };
+      if (step==='make') return { items:[{v:'',label:'Any make',sel:false}, ...MAKES.map(m=>({v:m,label:m,sel:F().make===m,n:CARS.filter(c=>c.make===m).length}))] };
       const models = [...new Set(CARS.filter(c=>c.make===tmp).map(c=>c.model))].sort();
-      return { title:tmp, back:true, items:[{v:'',label:`Any ${tmp} model`,sel:!F().model}, ...models.map(m=>({v:m,label:m,sel:F().model===m,n:CARS.filter(c=>c.make===tmp&&c.model===m).length}))] };
+      return { title:tmp, back:true, items:[{v:'',label:`Any ${tmp} model`,sel:false}, ...models.map(m=>({v:m,label:m,sel:F().model===m,n:CARS.filter(c=>c.make===tmp&&c.model===m).length}))] };
     },
     pick:v=>{
       if (step==='make'){ if (!v){ F().make=''; F().model=''; onFilter(); return; } tmp=v; F().make=v; F().model=''; step='model'; onFilter(); return 'keep'; }
@@ -188,8 +190,8 @@ function rangeCombo(label, kF, kT, opts, fmt, unit, cls=''){
     display:()=>{ const a=F()[kF], b=F()[kT];
       if (a!=null && b!=null) return `${fmt(a)} – ${fmt(b)}${u()}`; if (a!=null) return `From ${fmt(a)}${u()}`; if (b!=null) return `Up to ${fmt(b)}${u()}`; return 'Any'; },
     view:()=> step==='from'
-      ? { title:'From', items:[{v:'',label:'Any',sel:F()[kF]==null}, ...O().map(o=>({v:o,label:fmt(o)+u(),sel:F()[kF]===o}))] }
-      : { title:'To', back:true, items:[{v:'',label:'Any',sel:F()[kT]==null}, ...O().filter(o=>F()[kF]==null||o>F()[kF]).map(o=>({v:o,label:fmt(o)+u(),sel:F()[kT]===o}))] },
+      ? { title:'From', items:[{v:'',label:'No min',sel:false}, ...O().map(o=>({v:o,label:fmt(o)+u(),sel:F()[kF]===o}))] }
+      : { title:'To', back:true, items:[{v:'',label:'No max',sel:false}, ...O().filter(o=>F()[kF]==null||o>F()[kF]).map(o=>({v:o,label:fmt(o)+u(),sel:F()[kT]===o}))] },
     pick:v=>{ if (step==='from'){ F()[kF] = v==='' ? null : +v; if (F()[kT]!=null && F()[kF]!=null && F()[kT]<=F()[kF]) F()[kT]=null; step='to'; onFilter(); return 'keep'; }
       F()[kT] = v==='' ? null : +v; step='from'; onFilter(); },
     back:()=>{ step='from'; }, reset:()=>{ step='from'; } };
@@ -197,6 +199,9 @@ function rangeCombo(label, kF, kT, opts, fmt, unit, cls=''){
 }
 const fmtNum = n => Number(n).toLocaleString('en-IE');
 const SLIDERS = `<svg width="16" height="14" viewBox="0 0 16 14" aria-hidden="true"><path d="M1 3.5H15M1 10.5H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="5" cy="3.5" r="2.2" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/><circle cx="11" cy="10.5" r="2.2" fill="var(--surface)" stroke="currentColor" stroke-width="1.6"/></svg>`;
+// circular reset arrow (counter-clockwise), not a bin
+const RESET = `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 3.5v5h5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const resetHTML = cls => `<button type="button" class="f-reset ${cls}" data-clear aria-label="Reset all filters">${RESET}<span>Reset</span></button>`;
 const TICK = `<svg class="tk" width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.2 9.3L7.8 11.8L12.8 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 const togHTML = (k, label, tone='') => `<button type="button" class="rec ${tone} ${STATE.f[k]?'on':''}" data-tog="${k}" aria-pressed="${STATE.f[k]}">${TICK}<span>${label}</span></button>`;
 function syncFinder(){
@@ -205,6 +210,9 @@ function syncFinder(){
   $$('[data-mode]').forEach(x => x.classList.toggle('on', (x.dataset.mode==='monthly') === STATE.f.monthly));
   const f = STATE.f, n = [f.make, f.kmF!=null||f.kmT!=null, f.pF!=null||f.pT!=null, f.yF!=null||f.yT!=null, f.fuel!=='All', f.gear!=='All', f.body!=='All', f.colour!=='All', f.eng!=='All', f.one, f.fsh, f.irish, f.nct].filter(Boolean).length;
   $$('[data-active-n]').forEach(el => { el.textContent = n || ''; el.hidden = !n; });
+  // reset is faded and inactive while there is nothing to clear
+  const dirty = n > 0 || f.monthly;
+  $$('.f-reset').forEach(b => { b.disabled = !dirty; });
 }
 function finderHTML(where){
   const f = STATE.f;
@@ -217,7 +225,7 @@ function finderHTML(where){
       ${rangeCombo(()=>STATE.f.monthly?'Monthly budget':'Budget','pF','pT',()=>STATE.f.monthly?MON_OPTS:PRICE_OPTS,n=>'€'+fmtNum(n),()=>STATE.f.monthly?' a month':'', 'f-budget')}
       ${rangeCombo('Year','yF','yT',YEAR_OPTS,n=>String(n),'')}
       <span class="f-vr" aria-hidden="true"></span>
-      <button type="button" class="btn btn-line f-all" data-more aria-expanded="false">${SLIDERS}<span class="f-all-t">All filters</span><span class="f-n" data-active-n hidden></span></button>
+      <div class="f-acts"><button type="button" class="btn btn-line f-all" data-more aria-expanded="false">${SLIDERS}<span class="f-all-t">All filters</span><span class="f-n" data-active-n hidden></span></button>${resetHTML('f-reset-bar')}</div>
     </div>
     <div class="f-row f-row2">
       ${grp('Fuel', pills('fuel',['Petrol','Diesel','Hybrid']))}
@@ -226,9 +234,9 @@ function finderHTML(where){
     </div>
     <div class="f-more"><div class="f-more-in">
       <div class="f-row f-row3">${grp('Body type', pills('body',['Hatchback','Saloon','Estate','SUV']))}${grp('Engine', pills('eng',['Up to 1.2 L','1.3 – 1.6 L','1.8 L and above']))}</div>
-      <div class="f-row f-row4">${grp('Colour', pills('colour',['Grey','White','Black']))}${grp('Prices', `<div class="seg" role="group" aria-label="Show prices as"><button type="button" data-mode="price" class="${f.monthly?'':'on'}">Full price</button><button type="button" data-mode="monthly" class="${f.monthly?'on':''}">Monthly</button></div>`)}<div class="f-grp f-rec" role="group" aria-label="More from our records">${togHTML('irish','Irish supplied','r-irish')}${togHTML('nct','NCT to 2027+','r-nct')}</div></div>
+      <div class="f-row f-row4">${grp('Colour', pills('colour',['Grey','White','Black']))}${grp('Prices', `<div class="seg" role="group" aria-label="Show prices as"><button type="button" data-mode="price" class="${f.monthly?'':'on'}">Full price</button><button type="button" data-mode="monthly" class="${f.monthly?'on':''}">Monthly</button></div>`)}<div class="f-grp f-rec" role="group" aria-label="More from our records">${togHTML('irish','Irish supplied','r-irish')}${togHTML('nct','NCT to 2027+','r-nct')}</div>${resetHTML('f-reset-panel')}</div>
     </div></div>
-    <div class="f-foot">${where==='stock' ? `<button type="button" class="btn btn-line" data-clear>Clear all</button>` : ''}<button type="button" class="btn btn-wine btn-lg f-go" data-go><span data-count-label>Show cars</span></button></div>
+    <div class="f-foot"><button type="button" class="btn btn-wine btn-lg f-go" data-go><span data-count-label>Show cars</span></button></div>
   </div>`;
 }
 function setMore(open){
@@ -349,7 +357,7 @@ function stockHTML(){
   return `
   <div class="wrap pg-top"><h1 class="d h1">Every one inspected.</h1></div>
   <div class="wrap">${finderHTML('stock')}</div>
-  <div class="fstrip" id="fstrip" aria-hidden="true"><div class="wrap fstrip-in"><span class="small muted">Filters</span><span id="fstripTxt" class="fstrip-txt"></span><button type="button" class="btn btn-line" data-edit-filters>Edit filters</button></div></div>
+  <div class="fstrip" id="fstrip" aria-hidden="true"><div class="wrap fstrip-in"><span class="small muted">Filters</span><span id="fstripTxt" class="fstrip-txt"></span>${resetHTML('f-reset-strip')}<button type="button" class="btn btn-line" data-edit-filters>Edit filters</button></div></div>
   <div class="wrap res-bar"><p class="muted" style="margin:0" id="count" aria-live="polite"></p><div style="width:260px">${combo('Sort by', ['Newest arrivals','Price, low to high','Price, high to low','Kilometres, lowest','Year, newest'], STATE.f.sort, 'white', v=>{STATE.f.sort=v;renderCards();})}</div></div>
   <section class="wrap" aria-label="Results" style="padding-bottom:120px"><div class="cards" id="cards"></div></section>
   ${footerHTML()}`;
@@ -373,15 +381,45 @@ function filtered(){
   list.sort((a,b)=> s.startsWith('Price, low') ? a.price-b.price : s.startsWith('Price, high') ? b.price-a.price : s.startsWith('Kilo') ? a.km-b.km : s.startsWith('Year') ? b.year-a.year : (b.year*1e6-b.km) - (a.year*1e6-a.km));
   return list;
 }
-function cardHTML(c){
+// What a car misses against the current filters: [label, distance]. Labels state the car's own value or the gap.
+function misses(c){
+  const f = STATE.f, out = [];
+  if (f.make && c.make!==f.make) out.push([`Not a ${f.make}`, 1]);
+  else if (f.model && c.model!==f.model) out.push([`Not a ${f.model}`, 1]);
+  if (f.kmT!=null && c.km>f.kmT) out.push([`${km(c.km-f.kmT)} km over your max`, (c.km-f.kmT)/20000]);
+  if (f.kmF!=null && c.km<f.kmF) out.push([`${km(f.kmF-c.km)} km under your min`, (f.kmF-c.km)/20000]);
+  const val = f.monthly ? c.monthlyFrom : c.price, per = f.monthly ? ' a month' : '', unit = f.monthly ? 100 : 5000;
+  if (f.pT!=null && val>f.pT) out.push([`${eur(val-f.pT)}${per} over budget`, (val-f.pT)/unit]);
+  if (f.pF!=null && val<f.pF) out.push([`${eur(f.pF-val)}${per} under your min`, (f.pF-val)/unit]);
+  if (f.yF!=null && c.year<f.yF) out.push([`${c.year} model`, f.yF-c.year]);
+  if (f.yT!=null && c.year>f.yT) out.push([`${c.year} model`, c.year-f.yT]);
+  if (f.fuel!=='All' && c.fuel!==f.fuel) out.push([c.fuel, 1]);
+  if (f.gear!=='All' && c.transmission!==f.gear) out.push([c.transmission, 1]);
+  if (f.body!=='All' && c.body!==f.body) out.push([c.body, 1]);
+  if (f.colour!=='All' && colourGroup(c)!==f.colour) out.push([c.colour, 1]);
+  if (f.eng!=='All' && engGroup(c)!==f.eng) out.push([`${c.engine} engine`, 1]);
+  if (f.one && c.owners!==1) out.push([`${c.owners} owners`, 1]);
+  if (f.fsh && !c.fullServiceHistory) out.push([c.servicesCount ? 'Partial service history' : 'No service history', 1]);
+  if (f.irish && c.origin!=='Irish supplied') out.push([c.origin, 1]);
+  if (f.nct && +c.nctValidTo < 2027) out.push([`NCT to ${c.nctValidTo}`, 1]);
+  return out;
+}
+// fewest misses first, then the smallest gap
+function closest(){
+  return CARS.map(c => { const m = misses(c); return { c, m, score: m.length*10 + m.reduce((a,x)=>a+Math.min(x[1],9),0) }; })
+    .filter(x => x.m.length).sort((a,b)=>a.score-b.score).slice(0,6);
+}
+function cardHTML(c, miss){
   const main = STATE.f.monthly ? eur(c.monthlyFrom)+'<span style="font-size:15px;font-weight:500"> a month</span>' : eur(c.price);
   const sec = STATE.f.monthly ? 'or ' + eur(c.price) : 'or ' + eur(c.monthlyFrom) + ' a month';
-  return `<a class="card fade-in" href="/cars/${c.slug}/">${scrub(c,'tags')}<div class="cb-body"><div class="nm">${nm(c)}</div><div class="small muted">${c.variant}</div><div class="small muted">${c.year} · ${km(c.km)} km · ${c.fuel} · ${c.transmission}</div><div class="pr"><b>${main}</b><span class="small muted">${sec}</span></div></div></a>`;
+  return `<a class="card fade-in" href="/cars/${c.slug}/">${scrub(c,'tags')}<div class="cb-body"><div class="nm">${nm(c)}</div><div class="small muted">${c.variant}</div><div class="small muted">${c.year} · ${km(c.km)} km · ${c.fuel} · ${c.transmission}</div><div class="pr"><b>${main}</b><span class="small muted">${sec}</span></div>${miss ? `<div class="miss"><span class="miss-lab">Misses</span>${miss.map(x=>`<span>${x[0]}</span>`).join('')}</div>` : ''}</div></a>`;
 }
 function renderCards(){
   const list = filtered(); const el = $('#cards'); if (!el) return;
-  el.innerHTML = list.length ? list.map(cardHTML).join('') : `<div class="empty"><h3 class="q" style="font-size:26px">No cars match those filters.</h3><p class="muted" style="margin:0">Try a wider budget or fewer options.</p><button class="btn btn-wine" data-clear>Clear all</button></div>`;
-  $('#count').textContent = list.length === CARS.length ? "All cars" : `${list.length} ${list.length===1?'car matches':'cars match'}`;
+  el.innerHTML = list.length ? list.map(c => cardHTML(c)).join('') : `<div class="empty"><h3 class="q" style="font-size:26px">No exact matches</h3><p class="muted" style="margin:0">Nothing in stock fits every filter you picked.</p><button type="button" class="btn btn-wine" data-clear>Clear filters</button></div>
+    <div class="near-head"><h3 class="q">Closest cars</h3><p class="muted" style="margin:0">Each one misses at least one of your filters, marked on the card.</p></div>
+    ${closest().map(x => cardHTML(x.c, x.m)).join('')}`;
+  $('#count').textContent = list.length === CARS.length ? "All cars" : list.length ? `${list.length} ${list.length===1?'car matches':'cars match'}` : '0 cars match';
 }
 
 function carHTML(c){
@@ -398,7 +436,7 @@ function carHTML(c){
       <div><h1 class="d" style="font-size:40px">${nm(c)}</h1><div class="muted" style="margin-top:6px">${c.variant} · ${c.colour} · ${c.body}</div></div>
       <div><div style="font:600 44px/1.1 var(--body)">${eur(c.price)}</div><div class="small muted">or ${eur(c.monthlyFrom)} a month over 60 months, 10% deposit</div></div>
       <button class="btn btn-wine btn-lg" data-panel="testdrive">Book a test drive</button>
-      <button class="btn btn-line btn-lg" data-concept="reserve">Reserve for €200</button>
+      <button type="button" class="btn btn-line btn-lg" data-concept="reserve" disabled>Reserve for €200</button>
       <div class="small muted" style="margin-top:-6px;text-align:center">Refundable. We hold the car for you for 7 days.</div>
       <div class="kv"><span class="muted">Registration</span><span>${c.registration}</span><span class="muted">Owners</span><span>${c.owners}, ${c.owners===1?'verified':'both verified'}</span><span class="muted">Origin</span><span>${c.origin}</span><span class="muted">NCT</span><span>Valid to ${c.nctValidTo}</span><span class="muted">Inspection</span><span style="color:var(--wine);font-weight:600">112 of 112 passed</span></div>
     </aside>
@@ -408,13 +446,13 @@ function carHTML(c){
   <section class="insp stage" aria-labelledby="insp" style="border-radius:40px">
     <div class="wrap">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
-        <div style="display:flex;flex-direction:column;gap:12px;max-width:620px"><h2 class="d h2" id="insp">What our workshop found.</h2><p class="muted" style="margin:0">Our mechanics checked this car in October 2026. Touch any part of the car to see what we found. Anything repaired or replaced is marked in light stone, and it still passed.</p></div>
+        <div style="display:flex;flex-direction:column;gap:12px;max-width:620px"><h2 class="d h2" id="insp">What our workshop found.</h2><p class="muted" style="margin:0">Our mechanics checked this car in October 2026. Touch any part of the car to see what we found. Anything repaired or replaced is marked in grey, and it still passed.</p></div>
         <div style="display:flex;align-items:center;gap:18px"><svg width="128" height="128" viewBox="0 0 132 132" role="img" aria-label="112 of 112 checks passed"><circle cx="66" cy="66" r="54" fill="none" stroke="#3D4248" stroke-width="7"/><circle class="dial-arc" id="dial" cx="66" cy="66" r="54" fill="none" stroke="#86A57F" stroke-width="7" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="339.3" transform="rotate(-90 66 66)"/><text x="66" y="70" text-anchor="middle" fill="#F2EEE8" style="font:600 30px 'IBM Plex Sans',sans-serif">112</text><text x="66" y="90" text-anchor="middle" fill="#B9BBBD" style="font:500 11px 'IBM Plex Sans',sans-serif">of 112 passed</text></svg>
           <div class="small muted" style="max-width:150px">${reps.length ? reps.length + ' item' + (reps.length>1?'s':'') + ' repaired or replaced, all passed' : 'Nothing needed repairing'}</div></div>
       </div>
       <div class="insp-grid">
         <div class="iso-box">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div class="legend"><span><i class="dot" style="background:var(--pass)"></i>Passed</span><span><i class="dot" style="background:var(--rep)"></i>Repaired or replaced, passed</span></div><button class="btn btn-line" style="--h:42px;padding:0 18px;font-size:14px" data-flip>Show right side</button></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap"><div class="legend"><span><i class="dot" style="background:var(--pass)"></i>Passed</span><span><i class="dot" style="background:var(--fix)"></i>Repaired or replaced, passed</span></div><button class="btn btn-line" style="--h:42px;padding:0 18px;font-size:14px" data-flip>Show right side</button></div>
           <div class="iso-flip" id="isoFlip"><svg class="iso" id="iso" viewBox="-20 -40 1423 610" role="img" aria-label="Inspection diagram of the car" style="width:100%;height:auto;overflow:visible"></svg></div>
           <div class="small muted" style="text-align:center" id="sideNote"></div>
         </div>
@@ -441,7 +479,7 @@ function carHTML(c){
     </div>
   </section>
 
-  <section class="wrap" style="padding-block:110px 40px" aria-labelledby="sim"><h2 class="d" style="font-size:36px;margin-bottom:28px" id="sim">Similar cars on our forecourt</h2><div class="cards">${sim.map(cardHTML).join('')}</div></section>
+  <section class="wrap" style="padding-block:110px 40px" aria-labelledby="sim"><h2 class="d" style="font-size:36px;margin-bottom:28px" id="sim">Similar cars on our forecourt</h2><div class="cards">${sim.map(c => cardHTML(c)).join('')}</div></section>
   ${footerHTML()}`;
 }
 
@@ -728,10 +766,12 @@ const ZP = {rear:'M20 175 L40 120 L100 70 L150 40 L205 30 L172 132 L312 142 L318
 const ZMK = {rear:[110,250],doorRL:[470,265],doorFL:[785,270],cabin:[470,92],roof:[480,16],windscreen:[880,108],engine:[1100,232],front:[1325,320],wheelsR:[277,398],wheelsF:[1143,398]};
 const tintM = (r,g,b,k) => [r,g,b].map(c => `${(.2126*c*k).toFixed(3)} ${(.7152*c*k).toFixed(3)} ${(.0722*c*k).toFixed(3)} 0 0`).join(' ') + ' 0 0 0 1 0';
 function initCar(c){
+  // nothing is picked on load: the left side shows, the card gives the summary until a part is touched
   let side = 'L', sel = null, hov = null;
   const zones = c.inspection.zones, byId = Object.fromEntries(zones.map(z=>[z.id,z]));
-  sel = (zones.find(z=>z.status==='repaired') || byId.engine).id;
-  if (sel==='doorFR'||sel==='doorRR') side='R';
+  const fixed = zones.filter(z=>z.status==='repaired');
+  // the label says what the workshop did, read from its own note
+  const fixLabel = z => /replaced/i.test(z.text) ? 'Replaced, passed' : /resprayed/i.test(z.text) ? 'Resprayed, passed' : 'Repaired, passed';
   const svg = $('#iso');
   const toSrc = z => ({doorFR:'doorFL',doorRR:'doorRL'})[z] || z;                 // right-side ids reuse the left geometry, mirrored
   const visible = id => side==='L' ? !['doorFR','doorRR'].includes(id) : !['doorFL','doorRL'].includes(id);
@@ -743,8 +783,8 @@ function initCar(c){
         <g id="carImg"><image href="/img/car-body.webp" width="1383" height="433"/><image href="/img/car-wheel.webp" x="151" y="272" width="252" height="252"/><image href="/img/car-wheel.webp" x="1017" y="272" width="252" height="252"/></g>
         <filter id="fBase"><feColorMatrix type="matrix" values="${tintM(.86,.9,.95,.62)}"/></filter>
         <filter id="fPass" x="-5%" y="-5%" width="110%" height="125%"><feColorMatrix type="matrix" values="${tintM(.58,.78,.55,1.75)}"/></filter>
-        <filter id="fRep" x="-5%" y="-5%" width="110%" height="125%"><feColorMatrix type="matrix" values="${tintM(.98,.9,.78,1.9)}"/></filter>
-        <filter id="fRepSoft"><feColorMatrix type="matrix" values="${tintM(.98,.9,.78,1.2)}"/></filter>
+        <filter id="fRep" x="-5%" y="-5%" width="110%" height="125%"><feColorMatrix type="matrix" values="${tintM(.9,.92,.95,1.75)}"/></filter>
+        <filter id="fRepSoft"><feColorMatrix type="matrix" values="${tintM(.9,.92,.95,1.05)}"/></filter>
         <filter id="fLift" x="-10%" y="-10%" width="120%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="9" flood-color="#000" flood-opacity=".55"/></filter>
         ${ids().map(id=>`<mask id="cp-${id}" maskUnits="userSpaceOnUse" x="-40" y="-60" width="1463" height="650"><path fill="#fff" d="${ZP[toSrc(id)]}"/>${/^wheels/.test(id)?'':`<path fill="#000" d="${ZP.wheelsR} ${ZP.wheelsF}"/>`}</mask>`).join('')}
       </defs>
@@ -762,17 +802,21 @@ function initCar(c){
     $('[data-flip]').textContent = side==='L' ? 'Show right side' : 'Show left side';
   }
   function paint(){
-    const act = hov || sel, z0 = byId[act];
+    const act = hov || sel, z0 = act && byId[act];
     const g = $('#isoSel', svg);
-    if (g && visible(act)){
-      g.innerHTML = `<g class="lift" filter="url(#fLift)"><g mask="url(#cp-${act})"><use href="#carImg" filter="url(#${z0.status==='repaired'?'fRep':'fPass'})"/></g></g>`;
+    if (g){
+      g.innerHTML = z0 && visible(act) ? `<g class="lift" filter="url(#fLift)"><g mask="url(#cp-${act})"><use href="#carImg" filter="url(#${z0.status==='repaired'?'fRep':'fPass'})"/></g></g>` : '';
       $$('.repsoft', svg).forEach(r => r.style.opacity = r.dataset.rep===act ? 0 : 1);
     }
-    const z = byId[act]; const rep = z.status==='repaired';
-    $('#zoneCard').innerHTML = `<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div style="font:600 24px var(--body)">${z.name}</div><span style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:6px 14px;border-radius:999px;background:${rep?'rgba(230,217,198,.14)':'rgba(134,165,127,.16)'};color:${rep?'#E6D9C6':'#B7D2B1'}"><i class="dot" style="background:${rep?'var(--rep)':'var(--pass)'}"></i>${rep?'Repaired, passed':'Passed'}</span></div><p style="margin:0">${z.text}</p>`;
     $$('#zgrid .zb').forEach(b => b.classList.toggle('on', b.dataset.z===act));
+    if (!z0){
+      $('#zoneCard').innerHTML = `<div style="font:600 24px var(--body)">All 112 checks passed</div><p style="margin:0">${fixed.length ? `${fixed.length} ${fixed.length>1?'parts were':'part was'} repaired or replaced by our workshop, marked in grey. ` : ''}Touch any part of the car, or pick one below, to see what we found.</p>`;
+      return;
+    }
+    const rep = z0.status==='repaired';
+    $('#zoneCard').innerHTML = `<div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div style="font:600 24px var(--body)">${z0.name}</div><span style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:6px 14px;border-radius:999px;white-space:nowrap;background:${rep?'rgba(201,205,210,.14)':'rgba(134,165,127,.16)'};color:${rep?'#D9DCE0':'#B7D2B1'}"><i class="dot" style="background:${rep?'var(--fix)':'var(--pass)'}"></i>${rep?fixLabel(z0):'Passed'}</span></div><p style="margin:0">${z0.text}</p>`;
   }
-  $('#zgrid').innerHTML = zones.map(z=>`<button class="zb" data-z="${z.id}"><i class="dot" style="background:${z.status==='repaired'?'var(--rep)':'var(--pass)'}"></i>${z.name}</button>`).join('');
+  $('#zgrid').innerHTML = zones.map(z=>`<button class="zb" data-z="${z.id}"><i class="dot" style="background:${z.status==='repaired'?'var(--fix)':'var(--pass)'}"></i>${z.name}</button>`).join('');
   svg.addEventListener('pointerover', e => { const p = e.target.closest('[data-z]'); if (p && e.pointerType!=='touch'){ hov = p.dataset.z; paint(); } });
   svg.addEventListener('pointerleave', () => { hov = null; paint(); });
   svg.addEventListener('click', e => { const p = e.target.closest('[data-z]'); if (p){ sel = p.dataset.z; hov = null; paint(); } });
@@ -829,6 +873,8 @@ function initFinance(){
 }
 
 /* ---------- global clicks ---------- */
+// Demo-only actions (call, directions, reserve) do nothing at all: no message, no dialling.
+document.addEventListener('click', e => { if (e.target.closest('[data-concept]')){ e.preventDefault(); e.stopPropagation(); } }, true);
 document.addEventListener('click', e => {
   const g = e.target.closest('[data-goto="visit"]'); if (g){ e.preventDefault(); const f = $('[data-visit]'); if (f) f.scrollIntoView({behavior: reduce?'auto':'smooth'}); }
   const p = e.target.closest('[data-panel]'); if (p){ e.preventDefault(); openPanel(p.dataset.panel, p); }
@@ -864,25 +910,22 @@ function drawPanel(){
   el.innerHTML = `<div class="panel-h"><h2 tabindex="-1" style="font:600 18px var(--body);margin:0">${title}</h2><button class="x" data-close aria-label="Close">${'<svg width="14" height="14" viewBox="0 0 14 14"><path d="M1 1L13 13M13 1L1 13" stroke="#1C1E21" stroke-width="1.8" stroke-linecap="round"/></svg>'}</button></div><div class="panel-b fade-in">${body}</div><div class="panel-f">${foot}</div>`;
   $('[data-close]', el).addEventListener('click', closePanel);
   $$('[data-act]', el).forEach(b => b.addEventListener('click', () => ACTIONS[b.dataset.act](b)));
-  const f = $('input', el); if (f && !f.dataset.nofocus) setTimeout(()=>f.focus(), 120);
+  // focus puts the caret at the end; WebKit would otherwise select the whole prefilled value, which looks picked
+  const f = $('input', el); if (f && !f.dataset.nofocus) setTimeout(()=>{ f.focus(); const n = f.value.length; try { f.setSelectionRange(n, n); } catch(e){} }, 120);
 }
 const CARIMG = c => `<img src="${c.photos[0]}" alt="" style="width:92px;height:70px;object-fit:cover;border-radius:16px">`;
 function testDrive(P){
   if (P.step===0) return { body:`<p class="q">Which car would you like to drive?</p><div style="display:flex;flex-direction:column;gap:8px">${CARS.slice(0,8).map(c=>`<button class="qrow" data-act="pickcar" data-slug="${c.slug}" style="flex-direction:row;align-items:center;border:0;cursor:pointer;text-align:left">${CARIMG(c)}<span><b style="display:block">${nm(c)}</b><span class="small muted">${c.year} · ${km(c.km)} km · ${eur(c.price)}</span></span></button>`).join('')}</div>`, foot:'' };
   const c = P.car;
   const days = tdDays(); const times = ['09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30','16:30']; const taken = [1,5,8];
-  if (P.step===1){ P.data.day ??= 1; P.data.time ??= 3;
-    return { body:`<div class="qrow" style="flex-direction:row;align-items:center">${CARIMG(c)}<span><b style="display:block">${nm(c)} ${c.variant}</b><span class="small muted">${c.year} · ${km(c.km)} km · ${eur(c.price)}</span></span></div>
+  return { body:`<div class="qrow" style="flex-direction:row;align-items:center">${CARIMG(c)}<span><b style="display:block">${nm(c)} ${c.variant}</b><span class="small muted">${c.year} · ${km(c.km)} km · ${eur(c.price)}</span></span></div>
       <p class="q" style="font-size:28px">When suits you?</p><div class="days">${days.map((d,i)=>`<button class="pill ${i===P.data.day?'on':''}" data-act="day" data-i="${i}"><b>${d[0]}</b><span class="small">${d[1]}</span></button>`).join('')}</div>
       <div style="font-weight:600">Time · 45 minutes, about 30 on the road</div><div class="slots">${times.map((t,i)=>`<button class="pill ${i===P.data.time?'on':''}" data-act="time" data-i="${i}" ${taken.includes(i)?'disabled':''}>${t}</button>`).join('')}</div>
       <div class="fl"><label for="td-n">Name</label><input class="in" id="td-n" value="Siobhán Murphy" data-nofocus="1"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="fl"><label for="td-m">Mobile</label><input class="in" id="td-m" value="087 123 4567"></div><div class="fl"><label for="td-e">Email</label><input class="in" id="td-e" value="siobhan@example.ie"></div></div>`,
-      foot:`<span class="small muted">${days[P.data.day][0]} ${days[P.data.day][1]} · ${times[P.data.time]}</span><button class="btn btn-wine" data-act="tdconfirm">Confirm test drive</button>` }; }
-  const d = days[P.data.day];
-  return { body:`<div class="found fade-in">${markSVG('#8C2B3C',56,'')}<p class="q">See you ${FULLDAY[d[0]]} ${d[1].replace('Oct','October')} at ${times[P.data.time]}.</p><p class="muted" style="margin:0">The ${c.make} will be washed, fuelled and waiting at the front of the forecourt. We've sent the details to your mobile.</p></div>
-    <div class="qrow"><div style="display:grid;grid-template-columns:auto 1fr;gap:6px 18px"><span class="muted">Where</span><span>Dublin Road, Athlone</span><span class="muted">Bring</span><span>Your full driving licence</span><span class="muted">Change</span><span>Call 01 234 5187 or reply to the text</span></div></div>`,
-    foot:`<button class="btn btn-line" data-act="back">Change the time</button><button class="btn btn-wine" data-act="done">Done</button>` };
+      foot:`<span class="small muted">${tdPick(days, times)}</span><button type="button" class="btn btn-wine" disabled>Confirm test drive</button>` };
 }
-const FULLDAY = {Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday'};
+// the footer line only shows what the visitor has picked so far
+const tdPick = (days, times) => [PANEL.data.day!=null ? days[PANEL.data.day].join(' ') : '', PANEL.data.time!=null ? times[PANEL.data.time] : ''].filter(Boolean).join(' · ');
 function tdDays(){ const out=[]; const d=new Date(); while(out.length<8){ d.setDate(d.getDate()+1); if (d.getDay()!==0) out.push([d.toLocaleDateString('en-IE',{weekday:'short'}).slice(0,3), d.getDate()+' '+d.toLocaleDateString('en-IE',{month:'short'}).slice(0,3)]); } return out; }
 function tradeIn(P){
   const total = 6, pct = Math.min(100, (P.step)/total*100);
@@ -892,36 +935,27 @@ function tradeIn(P){
   if (s===1) return { body:`${prog}<div class="thinking"><i></i><i></i><i></i><span>Looking up ${d.reg}…</span></div>`, foot:'' };
   if (s===2) return { body:`${prog}<p class="q">Is this your car?</p><div class="found"><img src="/img/car-body.webp" alt="" style="filter:brightness(.35) saturate(0)"><b style="font-size:20px">2017 Volkswagen Tiguan</b><span class="muted">2.0 TDI Highline · Deep Black · ${d.reg}</span></div>`, foot:`<button class="btn btn-line" data-act="notmine">No, try again</button><button class="btn btn-wine btn-lg" data-act="next">Yes, that's it</button>` };
   if (s===3) return { body:`${prog}<p class="q">How many kilometres are on the clock?</p><div class="big-in"><input id="kmIn" inputmode="numeric" value="${d.km||'148,500'}" aria-label="Kilometres"><span>km</span></div>`, foot:`<button class="btn btn-line" data-act="back">Back</button><button class="btn btn-wine btn-lg" data-act="next">Next</button>` };
-  if (s===4){ d.svc ??= 'Full'; d.dmg ??= 'No'; d.keys ??= '2 keys';
+  if (s===4){
     const row = (k, q, opts) => `<div class="qrow"><b>${q}</b><div class="pills">${opts.map(o=>`<button class="pill ${d[k]===o?'on':''}" data-act="opt" data-k="${k}" data-v="${o}">${o}</button>`).join('')}</div></div>`;
     return { body:`${prog}<p class="q">A few quick questions.</p>${row('svc','Service history',['Full','Partial','None'])}${row('dmg','Any damage or warning lights?',['No','Small marks','Needs work'])}${row('keys','How many keys?',['2 keys','1 key'])}`, foot:`<button class="btn btn-line" data-act="back">Back</button><button class="btn btn-wine btn-lg" data-act="next">Next</button>` }; }
   if (s===5){ d.ph ??= [];
     const slots = [['Front','M10 30 L18 20 L46 20 L54 30 L54 38 L10 38 Z'],['Rear','M10 30 L18 20 L46 20 L54 30 L54 38 L10 38 Z'],['Side','M4 34 L8 26 L20 22 L30 16 L46 16 L56 24 L62 28 L62 36 L4 36 Z'],['Dashboard','M6 34 C10 18 54 18 58 34 M32 24 L32 30']];
     return { body:`${prog}<p class="q">Add photos for a firmer offer.</p><p class="muted" style="margin:0">Optional. Four phone photos are enough.</p><div class="photos">${slots.map(([n,p],i)=>`<button class="${d.ph.includes(i)?'done':''}" data-act="photo" data-i="${i}"><svg width="64" height="44" viewBox="0 0 64 44" aria-hidden="true"><path d="${p}" fill="none" stroke="${d.ph.includes(i)?'#86A57F':'#8C9096'}" stroke-width="2" stroke-linejoin="round"/></svg>${d.ph.includes(i)?n+' added':n}</button>`).join('')}</div>`, foot:`<button class="btn btn-line" data-act="next">Skip</button><button class="btn btn-wine btn-lg" data-act="next">Continue</button>` }; }
-  if (s===6) return { body:`${prog}<p class="q">Where can we reach you?</p><div class="fl"><label for="ti-n">Name</label><input class="in" id="ti-n" value="${d.name||'Siobhán Murphy'}"></div><div class="fl"><label for="ti-m">Mobile</label><input class="in" id="ti-m" value="${d.mob||'087 123 4567'}"></div>`, foot:`<button class="btn btn-line" data-act="back">Back</button><button class="btn btn-wine btn-lg" data-act="value">Get my estimate</button>` };
-  if (s===7) return { body:`${prog}<div class="thinking"><i></i><i></i><i></i><span>Working out your value…</span></div>`, foot:'' };
-  const hr = new Date(new Date().toLocaleString('en-US',{timeZone:'Europe/Dublin'})).getHours();
-  const CALLS = hr>=9 && hr<16 ? ['Today before 6pm','Tomorrow morning','Tomorrow afternoon'] : ['Tomorrow morning','Tomorrow afternoon','Tomorrow evening'];
-  if (!CALLS.includes(d.call)) d.call = CALLS[0];
-  return { body:`<div class="found fade-in"><span class="muted">Your Tiguan is worth around</span><div class="range">€13,600 – €14,700</div><span class="small muted">Final offer after a quick look in our workshop.</span></div>
-    <div class="qrow"><div style="display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:15px"><span class="muted">Car</span><span>2017 Volkswagen Tiguan 2.0 TDI · ${d.reg}</span><span class="muted">Kilometres</span><span>${d.km||'148,500'} km</span><span class="muted">History</span><span>${d.svc} service history · ${d.dmg==='No'?'no damage':d.dmg.toLowerCase()} · ${d.keys}</span></div></div>
-    <div class="qrow"><b>When should we call?</b><div class="pills">${CALLS.map(o=>`<button class="pill ${d.call===o?'on':''}" data-act="opt" data-k="call" data-v="${o}">${o}</button>`).join('')}</div></div>`, foot:`<span class="small muted">Aoife or one of the team will ring ${d.mob||'087 123 4567'}.</span><button class="btn btn-wine" data-act="done">Done</button>` };
+  // last step: the submit button stays, faded and inactive; there is no estimate screen behind it
+  return { body:`${prog}<p class="q">Where can we reach you?</p><div class="fl"><label for="ti-n">Name</label><input class="in" id="ti-n" value="${d.name||'Siobhán Murphy'}"></div><div class="fl"><label for="ti-m">Mobile</label><input class="in" id="ti-m" value="${d.mob||'087 123 4567'}"></div>`, foot:`<button class="btn btn-line" data-act="back">Back</button><button type="button" class="btn btn-wine btn-lg" disabled>Get my estimate</button>` };
 }
 function pickPill(b){ $$('.pill', b.parentElement).forEach(x=>x.classList.toggle('on', x===b)); }
-function tdSummary(){ const s = $('#panel .panel-f .small'); if (!s) return; const days = tdDays(); const times = ['09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30','16:30']; s.textContent = `${days[PANEL.data.day][0]} ${days[PANEL.data.day][1]} · ${times[PANEL.data.time]}`; }
+function tdSummary(){ const s = $('#panel .panel-f .small'); if (!s) return; s.textContent = tdPick(tdDays(), ['09:30','10:00','10:30','11:00','11:30','14:00','14:30','15:00','15:30','16:30']); }
 const ACTIONS = {
   pickcar: b => { PANEL.car = bySlug(b.dataset.slug); PANEL.step = 1; drawPanel(); },
   day: b => { PANEL.data.day = +b.dataset.i; pickPill(b); tdSummary(); }, time: b => { PANEL.data.time = +b.dataset.i; pickPill(b); tdSummary(); },
-  tdconfirm: b => ConceptModal.open('testdrive', { from: b, onClose: () => { if (PANEL){ PANEL.step = 2; drawPanel(); } } }),
-  back: () => { PANEL.step = PANEL.kind==='testdrive' ? 1 : Math.max(0, PANEL.step-1); drawPanel(); },
-  done: closePanel,
+  back: () => { PANEL.step = Math.max(0, PANEL.step-1); drawPanel(); },
   lookup: () => { const v = ($('#reg').value || '').trim().toUpperCase(); if (!/^\d{2,3}-?[A-Z]{1,2}-?\d{1,6}$/.test(v.replace(/\s/g,''))){ $('#reg').setAttribute('aria-invalid','true'); $('.plate').style.borderColor='#B3261E'; if (!$('#regErr')) $('.panel-b').insertAdjacentHTML('beforeend', `<p id="regErr" class="small" style="color:#B3261E;margin:0" role="alert">We couldn't read that reg. Check it and try again, for example 172-WH-1408.</p>`); $('#reg').focus(); return; }
     PANEL.data.reg = v; PANEL.step = 1; drawPanel(); setTimeout(()=>{ if (PANEL && PANEL.step===1){ PANEL.step = 2; drawPanel(); } }, 1100); },
   notmine: () => { PANEL.step = 0; PANEL.data.reg=''; drawPanel(); },
   next: () => { if (PANEL.step===3) PANEL.data.km = $('#kmIn').value; PANEL.step++; drawPanel(); },
   opt: b => { PANEL.data[b.dataset.k] = b.dataset.v; pickPill(b); },
-  photo: b => { const i = +b.dataset.i; const ph = PANEL.data.ph; if (ph.includes(i)) return; ph.push(i); b.classList.add('done'); b.querySelector('path').setAttribute('stroke','#86A57F'); b.lastChild.textContent = b.lastChild.textContent.trim() + ' added'; },
-  value: b => { PANEL.data.name = $('#ti-n').value; PANEL.data.mob = $('#ti-m').value; ConceptModal.open('tradein', { from: b, onClose: () => { if (!PANEL) return; PANEL.step = 7; drawPanel(); setTimeout(()=>{ if (PANEL && PANEL.step===7){ PANEL.step = 8; drawPanel(); } }, 1300); } }); }
+  photo: b => { const i = +b.dataset.i; const ph = PANEL.data.ph; if (ph.includes(i)) return; ph.push(i); b.classList.add('done'); b.querySelector('path').setAttribute('stroke','#86A57F'); b.lastChild.textContent = b.lastChild.textContent.trim() + ' added'; }
 };
 // focus trap
 document.addEventListener('keydown', e => { if (e.key!=='Tab' || !PANEL) return; const f = $$('#panel button, #panel input, #panel [tabindex]').filter(x=>!x.disabled); if (!f.length) return; const first=f[0], last=f[f.length-1]; if (e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); } else if (!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); } });
